@@ -3,7 +3,6 @@ import RegrasEObjetivos from "./components/RegrasEObjetivos";
 import CategoryCards from "./components/CategoryCards";
 import Waves from "./components/Waves";
 import TextMarquee from "./components/TextMarquee";
-import PremioConcurso from "./components/PremioConcurso";
 import CriteriosAvaliacao from "./components/CriteriosAvaliacao";
 import Accordion from "./components/Accordion";
 import ConhecaVitis from "./components/ConhecaVitis";
@@ -15,7 +14,7 @@ function App() {
       <CategoryCards />
       <RegrasEObjetivos />
       <TextMarquee />
-      <PremioConcurso />
+
       <CriteriosAvaliacao />
       <Waves />
       <ConhecaVitis />

@@ -10,7 +10,7 @@ export default {
         desktop: "1200px",
       },
       fontFamily: {
-        bebas: ['"Bebas Neue"', "sans-serif"],
+        bebas: ["Bebas Neue", "sans-serif"],
       },
       keyframes: {
         marquee: {

@@ -1,5 +1,3 @@
-import React from "react";
-
 function VideoVertical() {
   return (
     <div className="w-full h-full">
