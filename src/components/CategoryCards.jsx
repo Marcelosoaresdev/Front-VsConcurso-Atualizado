@@ -1,89 +1,155 @@
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
-// Dados atualizados para corresponder à imagem de referência
+// --- DADOS ---
 const categories = [
   {
     title: "REELS",
     description:
-      "Vídeo curto emocionante com foco na divulgação dos minicursos da Vittis Souls.",
+      "Crie um vídeo curto e impactante para divulgar os minicursos da Vitis Souls.",
+    modalContent: {
+      objetivo:
+        "Criar um vídeo curto (Reel) com foco na venda dos miniccursos da Vitis Souls.",
+      requisitos: [
+        "Duração entre 30s a 1m.",
+        "Formatos: .mp4, .mov ou .avi.",
+        "Utilizar os materiais obrigatórios.",
+        "Conteúdo 100% autoral e original.",
+        "Não usar músicas ou imagens com direitos autorais.",
+      ],
+    },
   },
   {
     title: "PITCH",
     description:
-      "Proposta criativa de venda em formato de vídeo argumentativo apresentando os minicursos.",
+      "Apresente uma ideia criativa e original para a divulgação dos minicursos.",
+    modalContent: {
+      objetivo:
+        "Apresentar uma ideia original e criativa para divulgar os minicursos da Vitis Souls.",
+      requisitos: [
+        "Vídeo de 1:30 a 3 minutos.",
+        "Formato Horizontal 1920x1080.",
+        "Pode ser fala direta, storytelling, etc.",
+        "Definir público-alvo e estratégia.",
+        "Não usar conteúdos com direitos autorais.",
+      ],
+    },
   },
   {
     title: "DESIGN",
     description:
-      "Uma peça visual que promova os minicursos e se conecte com o público jovem.",
+      "Crie uma peça visual que represente os valores da Vitis Souls e promova seus minicursos.",
+    modalContent: {
+      objetivo:
+        "Criar uma peça visual que represente os valores da Vitis Souls e promova seus miniccursos com foco em transformação e conexão com o público jovem.",
+      requisitos: [
+        "Formatos: post, story, carrossel ou banner.",
+        "Mínimo de 1 e máximo de 5 peças.",
+        "Utilizar os elementos visuais oficiais da marca.",
+        "Proibido o uso de bancos de imagens.",
+        "Material 100% original e autoral.",
+      ],
+    },
   },
 ];
 
-// Componente do Card com o novo design
+// --- ANIMAÇÕES ---
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
+};
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+};
+const modalVariants = {
+  hidden: { opacity: 0, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.3, ease: "easeInOut" },
+  },
+  exit: {
+    opacity: 0,
+    scale: 0.95,
+    transition: { duration: 0.2, ease: "easeInOut" },
+  },
+};
+const backdropVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+  exit: { opacity: 0 },
+};
+
+// --- COMPONENTES ---
 function CategoryCard({ title, description, onClick }) {
   return (
-    <div className="relative bg-[#40013b] rounded-2xl p-6 pt-16 flex flex-col items-center text-center h-full shadow-lg">
-      {/* Círculo branco no topo */}
+    <motion.div
+      variants={itemVariants}
+      whileHover={{ y: -8, scale: 1.04 }} // Scale sutil de 4%
+      /* ▼▼▼ AQUI ESTÁ O AJUSTE PARA A ANIMAÇÃO SUAVE ▼▼▼ */
+      transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
+      className="relative bg-[#40013b] rounded-2xl p-6 pt-16 flex flex-col items-center text-center h-full shadow-lg border border-[#5a1c54] cursor-pointer"
+      onClick={onClick}
+    >
       <div className="absolute -top-8 bg-white rounded-full w-20 h-20 shadow-lg"></div>
-
-      {/* Conteúdo do card */}
       <div className="flex-grow flex flex-col items-center">
         <h3
-          className="text-7xl font-extrabold text-[#c9e265] uppercase"
-          style={{ fontFamily: "Bebas Neue, sans-serif" }} // Fonte Bebas Neue
+          className="text-6xl md:text-7xl font-extrabold text-[#c9e265] uppercase"
+          style={{ fontFamily: "Bebas Neue, sans-serif" }}
         >
           {title}
         </h3>
-        <p className="text-white mt-4 text-base flex-grow">{description}</p>
+        <p
+          className="text-white mt-4 text-base leading-relaxed flex-grow"
+          style={{ fontFamily: "'Inter', sans-serif" }}
+        >
+          {description}
+        </p>
       </div>
-
-      {/* Botão */}
-      <button
-        onClick={onClick}
-        className="cursor-pointer mt-6 w-full bg-[#ffc961] text-[#40013b] font-bold py-2 px-8 rounded-md text-lg uppercase transition hover:opacity-90"
-      >
+      <div className="mt-6 w-full bg-[#ffc961] text-[#40013b] font-bold py-2 px-8 rounded-md text-lg uppercase">
         Saiba Mais
-      </button>
-    </div>
+      </div>
+    </motion.div>
   );
 }
 
-// Componente principal que renderiza os cards e o modal
 function CategoryCards() {
   const [selectedCategory, setSelectedCategory] = useState(null);
-
-  // Simula dados para o modal, já que o objeto original foi simplificado
-  const handleCardClick = (category) => {
-    setSelectedCategory({
-      ...category,
-      // Adicione aqui os dados que o modal precisa, como icon e clickDescription
-      clickDescription:
-        "Descrição detalhada para o modal sobre " + category.title,
-      icon: "ICON_PLACEHOLDER", // Substitua por um ícone real se necessário
-      color: "bg-purple-600", // Cor para o modal
-    });
-  };
+  const handleCardClick = (category) => setSelectedCategory(category);
 
   return (
-    // Adaptei o padding e margens para um melhor visual
-    <div className=" py-15 md:py-20 px-4 sm:px-10 lg:px-24">
+    <div className="py-16 md:py-24 px-4 sm:px-10">
       <div className="container max-w-6xl mx-auto">
-        {/* Seu título e descrição existentes */}
-        <div className="text-center mb-20">
+        <motion.div
+          variants={itemVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          className="text-center mb-20"
+        >
           <h2
-            className="text-[#ffc961] text-center italic px-8 py-2 rounded-xl text-7xl  lg:text-8xl tracking-wide mb-4"
+            className="text-[#ffc961] text-center italic px-8 py-2 rounded-xl text-7xl lg:text-8xl tracking-wide mb-4"
             style={{ fontFamily: "Bebas Neue, sans-serif" }}
           >
             CATEGORIAS
           </h2>
-          <p className="mt-2 text-gray-200 max-w-2xl mx-auto">
-            Escolha uma categoria e participe do VS Concurso com sua
-            criatividade e talento!
+          <p
+            className="mt-2 text-gray-300 text-lg leading-relaxed max-w-2xl mx-auto"
+            style={{ fontFamily: "'Inter', sans-serif" }}
+          >
+            Clique em uma categoria para saber mais sobre os requisitos de cada
+            uma.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Grid de cards atualizado */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-y-20 md:gap-x-8">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-y-20 md:gap-x-8"
+        >
           {categories.map((cat) => (
             <CategoryCard
               key={cat.title}
@@ -91,47 +157,83 @@ function CategoryCards() {
               onClick={() => handleCardClick(cat)}
             />
           ))}
-        </div>
+        </motion.div>
       </div>
 
-      {/* O modal continua funcionando como antes */}
-      {selectedCategory && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div
-            className="absolute inset-0 bg-black/70 "
-            onClick={() => setSelectedCategory(null)}
-          />
-          <div
-            className="relative bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full mx-4 my-4 overflow-y-auto"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 cursor-pointer"
+      <AnimatePresence>
+        {selectedCategory && (
+          <div className="fixed inset-0 flex items-center justify-center z-50 p-4">
+            <motion.div
+              variants={backdropVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="absolute inset-0 bg-black/80 backdrop-blur-sm"
               onClick={() => setSelectedCategory(null)}
+            />
+            <motion.div
+              variants={modalVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="relative bg-[#40013b] border border-[#5a1c54] rounded-2xl p-8 max-w-lg w-full max-h-[90vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
             >
-              ✕
-            </button>
-            <div className="flex flex-col items-center text-center">
-              <div
-                className={`${selectedCategory.color} rounded-full p-4 mb-4`}
-              >
-                {/* O ícone aqui precisará ser ajustado, pois foi removido do array principal */}
-              </div>
-              <h3 className="text-2xl font-bold mb-2">
-                {selectedCategory.title}
-              </h3>
-              <p className="text-gray-700 mb-6">
-                {selectedCategory.clickDescription}
-              </p>
               <button
-                className={`${selectedCategory.color} cursor-pointer text-white font-bold py-3 px-6 rounded-xl shadow hover:opacity-90 transition`}
+                className="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer"
+                onClick={() => setSelectedCategory(null)}
               >
-                Comprar Agora
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
               </button>
-            </div>
+              <div
+                className="w-full"
+                style={{ fontFamily: "'Inter', sans-serif" }}
+              >
+                <h3
+                  className="text-3xl font-bold mb-6 text-center text-[#add083] uppercase"
+                  style={{ fontFamily: "Bebas Neue, sans-serif" }}
+                >
+                  Categoria: {selectedCategory.title}
+                </h3>
+                <div className="text-left w-full space-y-6">
+                  <div>
+                    <h4 className="font-bold text-lg text-white mb-2">
+                      Objetivo:
+                    </h4>
+                    <p className="text-gray-300">
+                      {selectedCategory.modalContent.objetivo}
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-lg text-white mb-2">
+                      Requisitos:
+                    </h4>
+                    <ul className="list-disc list-inside space-y-2 text-gray-300">
+                      {selectedCategory.modalContent.requisitos.map(
+                        (req, index) => (
+                          <li key={index}>{req}</li>
+                        )
+                      )}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
           </div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
     </div>
   );
 }

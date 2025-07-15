@@ -6,9 +6,6 @@ function Waves() {
   return (
     <div className="overflow-hidden">
       <img src={wavesPath} alt="Onda decorativa" className="w-full" />
-    <div>
-      
-    </div>
     </div>
   );
 }

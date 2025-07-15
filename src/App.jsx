@@ -6,6 +6,7 @@ import TextMarquee from "./components/TextMarquee";
 import CriteriosAvaliacao from "./components/CriteriosAvaliacao";
 import Accordion from "./components/Accordion";
 import ConhecaVitis from "./components/ConhecaVitis";
+import TaxaInscricao from "./components/TaxaInscricao";
 
 function App() {
   return (
@@ -14,8 +15,8 @@ function App() {
       <CategoryCards />
       <RegrasEObjetivos />
       <TextMarquee />
-
       <CriteriosAvaliacao />
+      <TaxaInscricao />
       <Waves />
       <ConhecaVitis />
       <Accordion />
