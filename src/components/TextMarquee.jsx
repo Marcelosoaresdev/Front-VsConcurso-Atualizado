@@ -74,8 +74,8 @@ function TextMarquee() {
         {/* 2. Botão Quadrado */}
         <div className="flex-shrink-0">
           <a
-            href="#" // Coloque seu link de download aqui
-            download
+            href="https://drive.google.com/drive/folders/1rZ_5ZquL9I8OE3H-Ddl7obTG7FzMq9yP?usp=sharing" // Coloque seu link de download aqui
+            target="_blank"
             className="flex items-center justify-center text-center font-bold
                        w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36
                        bg-[#add083] text-black rounded-2xl shadow-xl 

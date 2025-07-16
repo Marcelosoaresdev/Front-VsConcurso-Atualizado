@@ -1,12 +1,74 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+// --- ÍCONES SVG ---
+const ReelsIcon = ({ className = "w-15 h-15 text-[#40013b]" }) => (
+  <svg
+    className={className}
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+    />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+    />
+  </svg>
+);
+
+const PitchIcon = ({ className = "w-15 h-15 text-[#40013b]" }) => (
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    {/* Círculo invisível para centralizar visualmente */}
+    <circle cx="12" cy="12" r="10" fill="none" stroke="none" />
+    {/* Linha vertical do cifrão */}
+    <path d="M12 3v16" />
+    {/* Curvas do "S" */}
+    <path d="M16 8c0-2-2-3-4-3s-4 1-4 3 2 3 4 3 4 1 4 3-2 3-4 3-4-1-4-3" />
+  </svg>
+);
+
+const DesignIcon = ({ className = "w-15 h-15 text-[#40013b]" }) => (
+  <svg
+    className={className}
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"
+    />
+  </svg>
+);
+
 // --- DADOS ---
 const categories = [
   {
     title: "REELS",
     description:
       "Crie um vídeo curto e impactante para divulgar os minicursos da Vitis Souls.",
+    icon: <ReelsIcon />,
     modalContent: {
       objetivo:
         "Criar um vídeo curto (Reels) com foco na venda dos miniccursos da Vitis Souls.",
@@ -23,6 +85,7 @@ const categories = [
     title: "PITCH",
     description:
       "Apresente uma ideia criativa e original para a divulgação dos minicursos.",
+    icon: <PitchIcon />,
     modalContent: {
       objetivo:
         "Apresentar uma ideia original e criativa para divulgar os minicursos da Vitis Souls.",
@@ -39,6 +102,7 @@ const categories = [
     title: "DESIGN",
     description:
       "Crie uma peça visual que represente os valores da Vitis Souls e promova seus minicursos.",
+    icon: <DesignIcon />,
     modalContent: {
       objetivo:
         "Criar uma peça visual que represente os valores da Vitis Souls e promova seus miniccursos com foco em transformação e conexão com o público jovem.",
@@ -82,17 +146,20 @@ const backdropVariants = {
 };
 
 // --- COMPONENTES ---
-function CategoryCard({ title, description, onClick }) {
+function CategoryCard({ title, description, onClick, icon }) {
   return (
     <motion.div
       variants={itemVariants}
-      whileHover={{ y: -8, scale: 1.04 }} // Scale sutil de 4%
-      /* ▼▼▼ AQUI ESTÁ O AJUSTE PARA A ANIMAÇÃO SUAVE ▼▼▼ */
+      whileHover={{ y: -8, scale: 1.04 }}
       transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
       className="relative bg-[#40013b] rounded-2xl p-6 pt-16 flex flex-col items-center text-center h-full shadow-lg border border-[#5a1c54] cursor-pointer"
       onClick={onClick}
     >
-      <div className="absolute -top-8 bg-white rounded-full w-20 h-20 shadow-lg"></div>
+      {/* ▼▼▼ 2. Adicione o ícone dentro do círculo branco ▼▼▼ */}
+      <div className="absolute -top-8 bg-white rounded-full w-20 h-20 shadow-lg flex items-center justify-center">
+        {icon}
+      </div>
+
       <div className="flex-grow flex flex-col items-center">
         <h3
           className="text-6xl md:text-7xl font-extrabold text-[#c9e265] uppercase"
