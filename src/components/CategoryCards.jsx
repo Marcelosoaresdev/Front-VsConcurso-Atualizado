@@ -9,7 +9,7 @@ const categories = [
       "Crie um vídeo curto e impactante para divulgar os minicursos da Vitis Souls.",
     modalContent: {
       objetivo:
-        "Criar um vídeo curto (Reel) com foco na venda dos miniccursos da Vitis Souls.",
+        "Criar um vídeo curto (Reels) com foco na venda dos miniccursos da Vitis Souls.",
       requisitos: [
         "Duração entre 30s a 1m.",
         "Formatos: .mp4, .mov ou .avi.",

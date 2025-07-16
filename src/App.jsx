@@ -17,9 +17,11 @@ function App() {
       <TextMarquee />
       <CriteriosAvaliacao />
       <TaxaInscricao />
-      <Waves />
-      <ConhecaVitis />
-      <Accordion />
+      <section className="#add083">
+        <Waves />
+        <ConhecaVitis />
+        <Accordion />
+      </section>
     </div>
   );
 }

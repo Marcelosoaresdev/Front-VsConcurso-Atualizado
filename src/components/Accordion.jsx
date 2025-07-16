@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 
-// ▼ DADOS: Todo o seu texto foi organizado aqui. Fica fácil de editar no futuro.
+// --- DADOS ---
 const faqData = [
   {
     question: "O que é a Vitis Souls?",
@@ -8,9 +9,9 @@ const faqData = [
       <>
         <p className="mb-4">
           A Vitis Souls não é apenas uma marca, é um movimento de transformação.
-          Criada por Flávia Cavalcante, autora, psicóloga e terapeuta, a Vitis
-          nasceu da coragem de transformar dores pessoais em um projeto coletivo
-          de autoconhecimento e reencontro com o sentido da vida.
+          Criada por Flávia Cavalcante, autora, psicóloga, coach e terapeuta, a
+          Vitis nasceu da coragem de transformar dores pessoais em um projeto
+          coletivo de autoconhecimento e reencontro com o sentido da vida.
         </p>
         <p>
           É uma marca que fala com pessoas reais, que se sentem perdidas,
@@ -63,18 +64,32 @@ const faqData = [
   },
 ];
 
-// ▼ LÓGICA DO ITEM INDIVIDUAL: Controla a abertura, fechamento e estilo de cada item.
+// --- ANIMAÇÕES ---
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15, delayChildren: 0.2 },
+  },
+};
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+};
+
+// --- COMPONENTES ---
 function AccordionItem({ item, isOpen, onClick }) {
   return (
-    <div className="border-b border-[#5a1c54]">
+    <motion.div variants={itemVariants} className="border-b border-[#92b06d]">
       <button
         onClick={onClick}
-        className="w-full flex justify-between items-center text-left py-5 px-2"
+        className="w-full flex justify-between items-center text-left py-5 px-2 cursor-pointer"
       >
         <h3
           className={`text-lg md:text-xl font-semibold transition-colors ${
-            isOpen ? "text-[#add083]" : "text-white"
+            isOpen ? "text-[#40013b]" : "text-gray-800"
           }`}
+          style={{ fontFamily: "'Inter', sans-serif" }}
         >
           {item.question}
         </h3>
@@ -84,7 +99,7 @@ function AccordionItem({ item, isOpen, onClick }) {
           }`}
         >
           <svg
-            className="w-6 h-6 text-gray-400"
+            className="w-6 h-6 text-[#40013b]"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -103,33 +118,44 @@ function AccordionItem({ item, isOpen, onClick }) {
         className={`overflow-hidden transition-all duration-500 ease-in-out`}
         style={{ maxHeight: isOpen ? "1000px" : "0" }}
       >
-        <div className="pb-5 px-2 text-gray-300 leading-relaxed">
+        <div
+          className="pb-5 px-2 text-gray-700 leading-relaxed"
+          style={{ fontFamily: "'Inter', sans-serif" }}
+        >
           {item.answer}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
-// ▼ COMPONENTE PRINCIPAL: Junta tudo e renderiza a seção.
 function Accordions() {
-  const [openIndex, setOpenIndex] = useState(0); // O primeiro item começará aberto
-
+  const [openIndex, setOpenIndex] = useState(0);
   const handleToggle = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <section className="bg-[#40013b] py-16 md:py-24">
+    <section className="bg-[#add083] py-16 md:py-24">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2
-          className="text-4xl sm:text-5xl text-center font-bold text-white uppercase mb-12"
+        <motion.h2
+          variants={itemVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          className="text-4xl sm:text-5xl text-center text-[#40013b] uppercase mb-12"
           style={{ fontFamily: "Bebas Neue, sans-serif" }}
         >
           Perguntas Frequentes
-        </h2>
+        </motion.h2>
 
-        <div className="space-y-2">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          className="space-y-2"
+        >
           {faqData.map((item, index) => (
             <AccordionItem
               key={index}
@@ -138,7 +164,7 @@ function Accordions() {
               onClick={() => handleToggle(index)}
             />
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

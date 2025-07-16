@@ -28,7 +28,7 @@ function MainLayout() {
   return (
     <section className="px-4 sm:px-10 lg:px-24 xl:px-40 pt-10 2xl:px-60 space-y-10">
       {/* Banner principal (sem animação para não atrasar o carregamento inicial) */}
-      <div className="rounded-3xl border border-[#5a1c54] overflow-hidden h-[25vh] lg:h-[50vh] flex items-center justify-center">
+      <div className="rounded-3xl border border-[#5d3559] overflow-hidden h-[25vh] lg:h-[50vh] flex items-center justify-center">
         <BannerTop />
       </div>
 
@@ -47,8 +47,7 @@ function MainLayout() {
         >
           <div className="relative border bg-[#40013b] border-[#5a1c54] rounded-2xl p-6 md:p-6 lg:p-10 flex flex-col justify-center grow">
             <h2
-              className="absolute -top-10 sm:-top-8 md:-top-10 left-1/2 -translate-x-1/2 text-[#ffc961] text-center italic uppercase px-2 sm:px-8 py-2 rounded-xl 
-                         text-4xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-8xl tracking-wide"
+              className="absolute -top-10 sm:-top-8 md:-top-10 left-1/2 -translate-x-1/2 text-[#ffc961] text-center italic uppercase px-2 sm:px-8 py-2 rounded-xl text-5xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-8xl tracking-wide"
               style={{ fontFamily: "Bebas Neue, sans-serif" }}
             >
               O QUE É O<br />
@@ -57,7 +56,7 @@ function MainLayout() {
 
             {/* 4. TIPOGRAFIA: Nova fonte 'Inter' e classes de texto melhoradas */}
             <p
-              className="text-gray-300 text-center text-base md:text-lg leading-relaxed mt-8 sm:mt-10 md:mt-20 lg:mt-24"
+              className="text-gray-300 text-center text-base md:text-lg leading-relaxed mt-8 sm:mt-20 md:mt-20 lg:mt-30"
               style={{ fontFamily: "'Inter', sans-serif" }}
             >
               O concurso é uma iniciativa para incentivar pessoas criativas a

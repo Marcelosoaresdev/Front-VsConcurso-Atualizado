@@ -1,6 +1,6 @@
 // src/components/Waves.jsx
 import React from "react";
-import wavesPath from "../assets/imagens/waves.svg";
+import wavesPath from "../assets/imagens/wave.svg";
 
 function Waves() {
   return (
