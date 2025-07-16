@@ -28,22 +28,14 @@ const planos = [
     titulo: "1 Categoria",
     preco: "15",
     // backendUrl: `...`  <-- REMOVA ESTA LINHA
-    features: [
-      "Inscrição em 1 categoria",
-      "Acesso à comunidade de criadores",
-      "Certificado de participação",
-    ],
+    features: ["Inscrição em 1 categoria", "Chance de ganhar R$1000,00"],
   },
   {
     id: "plano2",
     titulo: "2 Categorias",
     preco: "25",
     // backendUrl: `...`  <-- REMOVA ESTA LINHA
-    features: [
-      "Inscrição em 2 categorias",
-      "Acesso à comunidade de criadores",
-      "Suporte prioritário via chat",
-    ],
+    features: ["Inscrição em 2 categorias", "Chance de ganhar R$2000,00"],
   },
   {
     id: "plano3",
@@ -52,8 +44,7 @@ const planos = [
     // backendUrl: `...`  <-- REMOVA ESTA LINHA
     features: [
       "Inscrição em 3 categorias",
-      "Destaque na galeria de vencedores",
-      "Selo de 'Criador Destaque' no perfil",
+      "Chance de ganhar R$3000,00",
     ],
     destaque: true,
   },
