@@ -6,6 +6,7 @@ import TextMarquee from "./components/TextMarquee";
 import CriteriosAvaliacao from "./components/CriteriosAvaliacao";
 import ConhecaVitis from "./components/ConhecaVitis";
 import TaxaInscricao from "./components/TaxaInscricao";
+import ModalFormulario from "./components/ModalFormulario";
 import Accordion from "./components/Accordion";
 import Contato from "./components/Contato";
 
@@ -18,6 +19,7 @@ function App() {
       <TextMarquee />
       <CriteriosAvaliacao />
       <TaxaInscricao />
+      <ModalFormulario />
       <Waves />
       <ConhecaVitis />
       <Accordion />
