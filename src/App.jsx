@@ -4,9 +4,10 @@ import CategoryCards from "./components/CategoryCards";
 import Waves from "./components/Waves";
 import TextMarquee from "./components/TextMarquee";
 import CriteriosAvaliacao from "./components/CriteriosAvaliacao";
-import Accordion from "./components/Accordion";
 import ConhecaVitis from "./components/ConhecaVitis";
 import TaxaInscricao from "./components/TaxaInscricao";
+import Accordion from "./components/Accordion";
+import Contato from "./components/Contato";
 
 function App() {
   return (
@@ -17,11 +18,10 @@ function App() {
       <TextMarquee />
       <CriteriosAvaliacao />
       <TaxaInscricao />
-      <section className="#add083">
-        <Waves />
-        <ConhecaVitis />
-        <Accordion />
-      </section>
+      <Waves />
+      <ConhecaVitis />
+      <Accordion />
+      <Contato />
     </div>
   );
 }

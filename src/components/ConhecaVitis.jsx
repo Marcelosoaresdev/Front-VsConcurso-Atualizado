@@ -44,7 +44,7 @@ function ConhecaVitis({ logoSrc = logoVitis, logoAlt = "Logo Vitis Souls" }) {
           className="text-[#40013b] text-5xl sm:text-6xl lg:text-7xl font-bold uppercase tracking-wider"
           style={{ fontFamily: "Bebas Neue, sans-serif" }}
         >
-          Conheça a Vitis Souls
+          Conheça a <br /> Vitis Souls
         </motion.h1>
       </motion.div>
     </section>
