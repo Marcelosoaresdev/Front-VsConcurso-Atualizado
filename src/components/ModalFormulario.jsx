@@ -5,7 +5,6 @@ import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import { IMaskInput } from "react-imask";
 
-// Lista de categorias disponíveis para o concurso
 const allCategories = ["REELS", "PITCH", "DESIGN"];
 
 // --- Ícones e Animações (continuam os mesmos) ---
@@ -91,7 +90,13 @@ const formVariants = {
 function ModalFormulario({ plano, onClose, apiUrl }) {
   if (!plano) return null;
 
-  const [dados, setDados] = useState({ nome: "", email: "", telefone: "" });
+  // ▼▼▼ Adicionado 'perfilInstagram' ao estado inicial ▼▼▼
+  const [dados, setDados] = useState({
+    nome: "",
+    email: "",
+    telefone: "",
+    perfilInstagram: "",
+  });
   const [categoriasSelecionadas, setCategoriasSelecionadas] = useState([]);
 
   const [status, setStatus] = useState("idle");
@@ -112,13 +117,16 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
   };
 
   useEffect(() => {
-    const { nome, email, telefone } = dados;
+    // ▼▼▼ Adicionado 'perfilInstagram' à desestruturação ▼▼▼
+    const { nome, email, telefone, perfilInstagram } = dados;
     const unmaskedPhone = telefone.replace(/\D/g, "");
 
+    // ▼▼▼ Validação agora inclui o perfil do Instagram ▼▼▼
     const isValid =
       nome.trim() !== "" &&
       email.trim() !== "" &&
       unmaskedPhone.length === 11 &&
+      perfilInstagram.trim() !== "" && // Garante que não está vazio
       categoriasSelecionadas.length === maxCategorias;
 
     setIsFormValid(isValid);
@@ -138,22 +146,20 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
     try {
       const response = await axios.post(`${apiUrl}/api/inscricao`, {
         ...dados,
+        // Adiciona o @ de volta antes de enviar, para padronizar
+        perfilInstagram: `@${dados.perfilInstagram}`,
         plano: plano,
         categoriasEscolhidas: categoriasSelecionadas,
       });
 
-      // ▼▼▼ LÓGICA DE SUCESSO RESTAURADA ▼▼▼
       if (
         response &&
         response.data &&
         typeof response.data.checkoutUrl === "string"
       ) {
-        const { checkoutUrl } = response.data;
-        // 1. Mostra a mensagem de sucesso
         setStatus("success");
-        // 2. Espera 2 segundos e então redireciona
         setTimeout(() => {
-          window.location.href = checkoutUrl;
+          window.location.href = response.data.checkoutUrl;
         }, 2000);
       } else {
         throw new Error("Resposta inválida do servidor.");
@@ -262,6 +268,23 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
                 className="w-full p-3 bg-[#2d002a] text-white border border-[#5a1c54] rounded-lg focus:ring-2 focus:ring-[#add083] focus:border-transparent transition"
                 onAccept={(value) => setDados({ ...dados, telefone: value })}
               />
+
+              {/* ▼▼▼ NOVO CAMPO DE INSTAGRAM ▼▼▼ */}
+              <div className="relative">
+                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+                  @
+                </span>
+                <input
+                  type="text"
+                  name="perfilInstagram"
+                  placeholder="Seu perfil do Instagram onde será avaliado"
+                  value={dados.perfilInstagram}
+                  onChange={handleChange}
+                  required
+                  // O padding esquerdo (pl-7) dá espaço para o @
+                  className="w-full p-3 pl-7 bg-[#2d002a] text-white border border-[#5a1c54] rounded-lg focus:ring-2 focus:ring-[#add083] focus:border-transparent transition"
+                />
+              </div>
 
               <div className="p-4 border border-[#5a1c54] rounded-lg bg-[#2d002a]/50">
                 <h4 className="font-bold text-white mb-2">
