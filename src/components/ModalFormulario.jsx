@@ -92,24 +92,19 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
   if (!plano) return null;
 
   const [dados, setDados] = useState({ nome: "", email: "", telefone: "" });
-  // ▼▼▼ NOVO ESTADO para guardar as categorias selecionadas ▼▼▼
   const [categoriasSelecionadas, setCategoriasSelecionadas] = useState([]);
 
   const [status, setStatus] = useState("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
 
-  // Determina quantas categorias o usuário pode escolher com base no plano
   const maxCategorias = parseInt(plano.titulo.charAt(0));
 
-  // ▼▼▼ NOVA FUNÇÃO para lidar com a seleção de checkboxes ▼▼▼
   const handleCategoryChange = (e) => {
     const { value, checked } = e.target;
     if (checked) {
-      // Se está marcando, adiciona à lista
       setCategoriasSelecionadas([...categoriasSelecionadas, value]);
     } else {
-      // Se está desmarcando, remove da lista
       setCategoriasSelecionadas(
         categoriasSelecionadas.filter((cat) => cat !== value)
       );
@@ -120,7 +115,6 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
     const { nome, email, telefone } = dados;
     const unmaskedPhone = telefone.replace(/\D/g, "");
 
-    // ▼▼▼ VALIDAÇÃO ATUALIZADA: agora também verifica se o número de categorias selecionadas está correto ▼▼▼
     const isValid =
       nome.trim() !== "" &&
       email.trim() !== "" &&
@@ -145,16 +139,22 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
       const response = await axios.post(`${apiUrl}/api/inscricao`, {
         ...dados,
         plano: plano,
-        // ▼▼▼ Envia a lista de categorias para o backend ▼▼▼
         categoriasEscolhidas: categoriasSelecionadas,
       });
 
+      // ▼▼▼ LÓGICA DE SUCESSO RESTAURADA ▼▼▼
       if (
         response &&
         response.data &&
         typeof response.data.checkoutUrl === "string"
       ) {
-        window.location.href = response.data.checkoutUrl;
+        const { checkoutUrl } = response.data;
+        // 1. Mostra a mensagem de sucesso
+        setStatus("success");
+        // 2. Espera 2 segundos e então redireciona
+        setTimeout(() => {
+          window.location.href = checkoutUrl;
+        }, 2000);
       } else {
         throw new Error("Resposta inválida do servidor.");
       }
@@ -169,7 +169,6 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
   };
 
   const renderContent = () => {
-    // ... (as seções 'success' e 'error' continuam as mesmas) ...
     switch (status) {
       case "success":
         return (
@@ -235,7 +234,6 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
               </p>
             </div>
             <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Inputs de nome, email e telefone continuam os mesmos */}
               <input
                 type="text"
                 name="nome"
@@ -265,7 +263,6 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
                 onAccept={(value) => setDados({ ...dados, telefone: value })}
               />
 
-              {/* ▼▼▼ NOVO BLOCO PARA SELEÇÃO DE CATEGORIAS ▼▼▼ */}
               <div className="p-4 border border-[#5a1c54] rounded-lg bg-[#2d002a]/50">
                 <h4 className="font-bold text-white mb-2">
                   Selecione {maxCategorias} Categoria(s):
@@ -281,7 +278,6 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
                         value={cat}
                         onChange={handleCategoryChange}
                         checked={categoriasSelecionadas.includes(cat)}
-                        // Desabilita o checkbox se o limite foi atingido e ele não está selecionado
                         disabled={
                           categoriasSelecionadas.length >= maxCategorias &&
                           !categoriasSelecionadas.includes(cat)
@@ -316,7 +312,6 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
   };
 
   return (
-    // ... (o resto do componente JSX continua o mesmo) ...
     <div className="fixed inset-0 flex items-center justify-center z-50 p-4">
       {" "}
       <motion.div
