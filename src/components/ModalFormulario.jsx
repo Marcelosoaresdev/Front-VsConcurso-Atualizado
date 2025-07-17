@@ -5,6 +5,9 @@ import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import { IMaskInput } from "react-imask";
 
+// Lista de categorias disponíveis para o concurso
+const allCategories = ["REELS", "PITCH", "DESIGN"];
+
 // --- Ícones e Animações (continuam os mesmos) ---
 const SpinnerIcon = () => (
   <svg
@@ -86,56 +89,46 @@ const formVariants = {
 };
 
 function ModalFormulario({ plano, onClose, apiUrl }) {
-  if (!plano) {
-    return null;
-  }
+  if (!plano) return null;
 
   const [dados, setDados] = useState({ nome: "", email: "", telefone: "" });
+  // ▼▼▼ NOVO ESTADO para guardar as categorias selecionadas ▼▼▼
+  const [categoriasSelecionadas, setCategoriasSelecionadas] = useState([]);
+
   const [status, setStatus] = useState("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isFormValid, setIsFormValid] = useState(false);
 
-  // ▼▼▼ NOVOS ESTADOS PARA VALIDAÇÃO ▼▼▼
-  // Guarda os erros de cada campo (ex: { email: 'E-mail inválido' })
-  const [errors, setErrors] = useState({});
-  // Guarda quais campos o usuário já tocou (para não mostrar erro antes da hora)
-  const [touched, setTouched] = useState({});
+  // Determina quantas categorias o usuário pode escolher com base no plano
+  const maxCategorias = parseInt(plano.titulo.charAt(0));
 
-  // Função para marcar um campo como "tocado" quando o usuário sai dele
-  const handleBlur = (e) => {
-    const { name } = e.target;
-    setTouched({
-      ...touched,
-      [name]: true,
-    });
+  // ▼▼▼ NOVA FUNÇÃO para lidar com a seleção de checkboxes ▼▼▼
+  const handleCategoryChange = (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      // Se está marcando, adiciona à lista
+      setCategoriasSelecionadas([...categoriasSelecionadas, value]);
+    } else {
+      // Se está desmarcando, remove da lista
+      setCategoriasSelecionadas(
+        categoriasSelecionadas.filter((cat) => cat !== value)
+      );
+    }
   };
 
-  // ▼▼▼ useEffect agora valida cada campo e define os erros ▼▼▼
   useEffect(() => {
-    const validate = () => {
-      const newErrors = {};
+    const { nome, email, telefone } = dados;
+    const unmaskedPhone = telefone.replace(/\D/g, "");
 
-      // Validação do Nome
-      if (!dados.nome.trim()) newErrors.nome = "O nome é obrigatório.";
+    // ▼▼▼ VALIDAÇÃO ATUALIZADA: agora também verifica se o número de categorias selecionadas está correto ▼▼▼
+    const isValid =
+      nome.trim() !== "" &&
+      email.trim() !== "" &&
+      unmaskedPhone.length === 11 &&
+      categoriasSelecionadas.length === maxCategorias;
 
-      // Validação do E-mail (formato simples)
-      if (!dados.email) {
-        newErrors.email = "O e-mail é obrigatório.";
-      } else if (!/\S+@\S+\.\S+/.test(dados.email)) {
-        newErrors.email = "Formato de e-mail inválido.";
-      }
-
-      // Validação do Telefone
-      const unmaskedPhone = dados.telefone.replace(/\D/g, "");
-      if (unmaskedPhone.length < 11)
-        newErrors.telefone = "O telefone está incompleto.";
-
-      setErrors(newErrors);
-    };
-
-    validate();
-  }, [dados]); // Roda a validação sempre que os dados mudam
-
-  const isFormValid = Object.keys(errors).length === 0;
+    setIsFormValid(isValid);
+  }, [dados, categoriasSelecionadas, maxCategorias]);
 
   const handleChange = (e) => {
     setDados({ ...dados, [e.target.name]: e.target.value });
@@ -143,12 +136,7 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!isFormValid) {
-      // Força todos os campos a mostrarem seus erros se o usuário tentar submeter um formulário inválido
-      setTouched({ nome: true, email: true, telefone: true });
-      setErrorMessage("Por favor, preencha todos os campos corretamente.");
-      return;
-    }
+    if (!isFormValid) return;
 
     setStatus("submitting");
     setErrorMessage("");
@@ -157,6 +145,8 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
       const response = await axios.post(`${apiUrl}/api/inscricao`, {
         ...dados,
         plano: plano,
+        // ▼▼▼ Envia a lista de categorias para o backend ▼▼▼
+        categoriasEscolhidas: categoriasSelecionadas,
       });
 
       if (
@@ -164,28 +154,22 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
         response.data &&
         typeof response.data.checkoutUrl === "string"
       ) {
-        const checkoutUrl = response.data.checkoutUrl;
-        setStatus("success");
-        setTimeout(() => {
-          window.location.href = checkoutUrl;
-        }, 2000);
+        window.location.href = response.data.checkoutUrl;
       } else {
         throw new Error("Resposta inválida do servidor.");
       }
     } catch (error) {
       console.error("Erro ao enviar dados:", error);
       setStatus("error");
-      if (error.response && error.response.data.message) {
-        setErrorMessage(error.response.data.message);
-      } else {
-        setErrorMessage(
-          "Não foi possível gerar o link de pagamento. Tente novamente."
-        );
-      }
+      setErrorMessage(
+        error.response?.data?.message ||
+          "Não foi possível gerar o link de pagamento."
+      );
     }
   };
 
   const renderContent = () => {
+    // ... (as seções 'success' e 'error' continuam as mesmas) ...
     switch (status) {
       case "success":
         return (
@@ -197,11 +181,12 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
             exit="exit"
             className="text-center flex flex-col items-center space-y-4 text-white"
           >
-            <CheckCircleIcon />
-            <h3 className="text-2xl font-bold">Inscrição Enviada!</h3>
+            {" "}
+            <CheckCircleIcon />{" "}
+            <h3 className="text-2xl font-bold">Inscrição Enviada!</h3>{" "}
             <p className="text-gray-300">
-              Você será redirecionado para o pagamento em instantes...
-            </p>
+              Você será redirecionado para o pagamento...
+            </p>{" "}
           </motion.div>
         );
       case "error":
@@ -214,17 +199,18 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
             exit="exit"
             className="text-center flex flex-col items-center space-y-4 text-white"
           >
-            <ExclamationCircleIcon />
+            {" "}
+            <ExclamationCircleIcon />{" "}
             <h3 className="text-2xl font-bold text-red-500">
               Ops! Algo deu errado.
-            </h3>
-            <p className="text-gray-300">{errorMessage}</p>
+            </h3>{" "}
+            <p className="text-gray-300">{errorMessage}</p>{" "}
             <button
               onClick={() => setStatus("idle")}
               className="w-full bg-gray-600 text-white py-3 px-6 rounded-lg hover:bg-gray-700 transition-colors"
             >
               Tentar Novamente
-            </button>
+            </button>{" "}
           </motion.div>
         );
       default:
@@ -245,86 +231,73 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
                 <span className="text-[#add083]">{plano.titulo}</span>
               </h2>
               <p className="text-gray-400 mt-2">
-                Falta pouco! Preencha seus dados para continuar.
+                Preencha seus dados e selecione suas categorias.
               </p>
             </div>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {" "}
-              {/* Aumentei o espaçamento para a mensagem de erro */}
-              <div>
-                <input
-                  type="text"
-                  name="nome"
-                  placeholder="Seu nome completo"
-                  value={dados.nome}
-                  onChange={handleChange}
-                  onBlur={handleBlur} // Adiciona o evento onBlur
-                  required
-                  // ▼▼▼ Lógica para mudar a cor da borda ▼▼▼
-                  className={`w-full p-3 bg-[#2d002a] text-white border rounded-lg focus:ring-2 focus:border-transparent transition ${
-                    touched.nome && errors.nome
-                      ? "border-red-500 focus:ring-red-500"
-                      : touched.nome && !errors.nome
-                      ? "border-green-500 focus:ring-green-500"
-                      : "border-[#5a1c54] focus:ring-[#add083]"
-                  }`}
-                />
-                {/* ▼▼▼ Mostra a mensagem de erro se existir ▼▼▼ */}
-                {touched.nome && errors.nome && (
-                  <p className="text-red-500 text-xs mt-1 ml-1">
-                    {errors.nome}
-                  </p>
-                )}
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Inputs de nome, email e telefone continuam os mesmos */}
+              <input
+                type="text"
+                name="nome"
+                placeholder="Seu nome completo"
+                value={dados.nome}
+                onChange={handleChange}
+                required
+                className="w-full p-3 bg-[#2d002a] text-white border border-[#5a1c54] rounded-lg focus:ring-2 focus:ring-[#add083] focus:border-transparent transition"
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Seu melhor e-mail"
+                value={dados.email}
+                onChange={handleChange}
+                required
+                className="w-full p-3 bg-[#2d002a] text-white border border-[#5a1c54] rounded-lg focus:ring-2 focus:ring-[#add083] focus:border-transparent transition"
+              />
+              <IMaskInput
+                mask="(00) 00000-0000"
+                value={dados.telefone}
+                name="telefone"
+                type="tel"
+                placeholder="Seu telefone com DDD"
+                required
+                className="w-full p-3 bg-[#2d002a] text-white border border-[#5a1c54] rounded-lg focus:ring-2 focus:ring-[#add083] focus:border-transparent transition"
+                onAccept={(value) => setDados({ ...dados, telefone: value })}
+              />
+
+              {/* ▼▼▼ NOVO BLOCO PARA SELEÇÃO DE CATEGORIAS ▼▼▼ */}
+              <div className="p-4 border border-[#5a1c54] rounded-lg bg-[#2d002a]/50">
+                <h4 className="font-bold text-white mb-2">
+                  Selecione {maxCategorias} Categoria(s):
+                </h4>
+                <div className="space-y-2">
+                  {allCategories.map((cat) => (
+                    <label
+                      key={cat}
+                      className="flex items-center space-x-3 cursor-pointer text-white"
+                    >
+                      <input
+                        type="checkbox"
+                        value={cat}
+                        onChange={handleCategoryChange}
+                        checked={categoriasSelecionadas.includes(cat)}
+                        // Desabilita o checkbox se o limite foi atingido e ele não está selecionado
+                        disabled={
+                          categoriasSelecionadas.length >= maxCategorias &&
+                          !categoriasSelecionadas.includes(cat)
+                        }
+                        className="w-5 h-5 bg-gray-700 border-gray-600 rounded text-[#add083] focus:ring-2 focus:ring-[#add083]/50 disabled:opacity-50 disabled:cursor-not-allowed"
+                      />
+                      <span>{cat}</span>
+                    </label>
+                  ))}
+                </div>
+                <p className="text-xs text-gray-400 mt-2">
+                  Selecionadas: {categoriasSelecionadas.length} de{" "}
+                  {maxCategorias}
+                </p>
               </div>
-              <div>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Seu melhor e-mail"
-                  value={dados.email}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  required
-                  className={`w-full p-3 bg-[#2d002a] text-white border rounded-lg focus:ring-2 focus:border-transparent transition ${
-                    touched.email && errors.email
-                      ? "border-red-500 focus:ring-red-500"
-                      : touched.email && !errors.email
-                      ? "border-green-500 focus:ring-green-500"
-                      : "border-[#5a1c54] focus:ring-[#add083]"
-                  }`}
-                />
-                {touched.email && errors.email && (
-                  <p className="text-red-500 text-xs mt-1 ml-1">
-                    {errors.email}
-                  </p>
-                )}
-              </div>
-              <div>
-                <IMaskInput
-                  mask="(00) 00000-0000"
-                  value={dados.telefone}
-                  name="telefone"
-                  type="tel"
-                  placeholder="Seu telefone com DDD"
-                  required
-                  onBlur={handleBlur}
-                  className={`w-full p-3 bg-[#2d002a] text-white border rounded-lg focus:ring-2 focus:border-transparent transition ${
-                    touched.telefone && errors.telefone
-                      ? "border-red-500 focus:ring-red-500"
-                      : touched.telefone && !errors.telefone
-                      ? "border-green-500 focus:ring-green-500"
-                      : "border-[#5a1c54] focus:ring-[#add083]"
-                  }`}
-                  onAccept={(value) => {
-                    setDados({ ...dados, telefone: value });
-                  }}
-                />
-                {touched.telefone && errors.telefone && (
-                  <p className="text-red-500 text-xs mt-1 ml-1">
-                    {errors.telefone}
-                  </p>
-                )}
-              </div>
+
               <button
                 type="submit"
                 disabled={!isFormValid || status === "submitting"}
@@ -343,14 +316,16 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
   };
 
   return (
+    // ... (o resto do componente JSX continua o mesmo) ...
     <div className="fixed inset-0 flex items-center justify-center z-50 p-4">
+      {" "}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         className="absolute inset-0 bg-black/80 backdrop-blur-sm"
         onClick={onClose}
-      />
+      />{" "}
       <motion.div
         variants={modalVariants}
         initial="hidden"
@@ -359,26 +334,29 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
         className="relative bg-[#40013b] border border-[#5a1c54] rounded-2xl p-8 max-w-md w-full"
         style={{ fontFamily: "'Inter', sans-serif" }}
       >
+        {" "}
         <button
           className="cursor-pointer absolute top-4 right-4 text-gray-400 hover:text-white"
           onClick={onClose}
         >
+          {" "}
           <svg
             className="w-6 h-6"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
           >
+            {" "}
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth={2}
               d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
-        <AnimatePresence mode="wait">{renderContent()}</AnimatePresence>
-      </motion.div>
+            />{" "}
+          </svg>{" "}
+        </button>{" "}
+        <AnimatePresence mode="wait">{renderContent()}</AnimatePresence>{" "}
+      </motion.div>{" "}
     </div>
   );
 }
