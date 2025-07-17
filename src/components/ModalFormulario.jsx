@@ -277,7 +277,7 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
                 <input
                   type="text"
                   name="perfilInstagram"
-                  placeholder="Seu perfil do Instagram onde será avaliado"
+                  placeholder="Seu perfil do Instagram"
                   value={dados.perfilInstagram}
                   onChange={handleChange}
                   required
