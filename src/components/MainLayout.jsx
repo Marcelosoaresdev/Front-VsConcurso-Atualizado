@@ -45,7 +45,7 @@ function MainLayout() {
           variants={itemVariants}
           className="flex flex-col gap-4 sm:gap-6 w-full md:w-2/3"
         >
-          <div className="relative border bg-[#40013b] border-[#5a1c54] rounded-2xl p-6 md:p-6 lg:p-10 flex flex-col justify-center ">
+          <div className="relative border bg-[#40013b] border-[#5a1c54] rounded-2xl p-6 md:p-6 lg:p-10 flex flex-col justify-center">
             <h2
               className="absolute -top-10 sm:-top-8 md:-top-10 left-1/2 -translate-x-1/2 text-[#ffc961] text-center italic uppercase px-2 sm:px-8 py-2 rounded-xl text-5xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-8xl tracking-wide"
               style={{ fontFamily: "Bebas Neue, sans-serif" }}
@@ -56,7 +56,7 @@ function MainLayout() {
 
             {/* 4. TIPOGRAFIA: Nova fonte 'Inter' e classes de texto melhoradas */}
             <p
-              className="text-gray-300 text-center text-base md:text-lg xl:text-xl leading-relaxed mt-8 sm:mt-20 md:mt-20 lg:mt-30"
+              className="text-gray-300 text-center text-base md:text-lg xl:text-2xl leading-relaxed mt-8 sm:mt-20 md:mt-20 lg:mt-30"
               style={{ fontFamily: "'Inter', sans-serif" }}
             >
               O concurso é uma iniciativa para incentivar pessoas criativas a
@@ -64,7 +64,7 @@ function MainLayout() {
               dos mini cursos da Vitis Souls.
             </p>
             <p
-              className="text-gray-300 text-center text-base md:text-lg xl:text-xl  leading-relaxed mt-4 md:mt-6"
+              className="text-gray-300 text-center text-base md:text-lg xl:text-2xl  leading-relaxed mt-4 md:mt-6"
               style={{ fontFamily: "'Inter', sans-serif" }}
             >
               Os mini cursos são uma ferramenta prática, embasada
