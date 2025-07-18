@@ -41,7 +41,6 @@ function App() {
           {/* Rota para a página inicial */}
           <Route path="/" element={<PaginaPrincipal />} />
 
-          {/* ▼▼▼ ADICIONE AS ROTAS PARA CADA PÁGINA DE STATUS ▼▼▼ */}
           <Route path="/sucesso" element={<Sucesso />} />
           <Route path="/falha" element={<Falha />} />
           <Route path="/pendente" element={<Pendente />} />

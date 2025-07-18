@@ -235,9 +235,6 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
                 Inscrição:{" "}
                 <span className="text-[#add083]">{plano.titulo}</span>
               </h2>
-              <p className="text-gray-400 mt-2">
-                Preencha seus dados e selecione suas categorias.
-              </p>
             </div>
             <form onSubmit={handleSubmit} className="space-y-4">
               <input
@@ -271,10 +268,15 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
 
               {/* ▼▼▼ NOVO CAMPO DE INSTAGRAM ▼▼▼ */}
               {/* Container que permite o posicionamento absoluto do ícone */}
+              <p className="text-sm text-gray-300 text-left mb-2">
+                Coloque abaixo o perfil que será postado o conteúdo
+              </p>
               <div className="relative">
                 {/* O ícone "@" posicionado de forma absoluta */}
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <span className="text-gray-400">@</span>
+
+                  {/* O texto de ajuda com uma das novas sugestões */}
                 </div>
 
                 {/* Seu input com o padding esquerdo para não sobrepor o ícone */}
@@ -289,11 +291,6 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
                   className="w-full p-3 pl-8 bg-[#2d002a] text-white border border-[#5a1c54] rounded-lg focus:ring-2 focus:ring-[#add083] focus:border-transparent transition"
                 />
               </div>
-
-              {/* O texto de ajuda com uma das novas sugestões */}
-              <p className="text-sm text-gray-300">
-                A avaliação considerará apenas os conteúdos publicados neste perfil.
-              </p>
 
               <div className="p-4 border border-[#5a1c54] rounded-lg bg-[#2d002a]/50">
                 <h4 className="font-bold text-white mb-2">

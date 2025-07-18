@@ -136,7 +136,7 @@ function Accordions() {
   };
 
   return (
-    <section className="bg-[#add083] py-16 md:py-24">
+    <section className="bg-[#9ed17f] py-16 md:py-24">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2
           variants={itemVariants}

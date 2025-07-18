@@ -21,7 +21,7 @@ const itemVariants = {
 
 function ConhecaVitis() {
   return (
-    <section className="bg-[#add083] px-4 sm:px-6 lg:px-8">
+    <section className="bg-[#9ed17f] px-4 sm:px-6 lg:px-8">
       {/* 3. Container da animação: ele controla quando a animação começa */}
       <motion.div
         variants={containerVariants}

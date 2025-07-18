@@ -19,7 +19,7 @@ function Contato() {
   const userEmail = "julia@vitissouls.com";
 
   return (
-    <section className="bg-[#add083] py-16 md:py-24">
+    <section className="bg-[#9ed17f] py-16 md:py-24">
       <motion.div
         variants={containerVariants}
         initial="hidden"
