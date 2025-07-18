@@ -25,19 +25,19 @@ function Contato() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
-        className="max-w-xl mx-auto px-4 text-center"
+        className="max-w-3xl mx-auto px-4 text-center"
       >
         <motion.h2
           variants={itemVariants}
-          className="text-5xl md:text-6xl text-[#40013b]"
-          style={{ fontFamily: "Bebas Neue, sans-serif", fontWeight: 600 }}
+          className="text-4xl sm:text-7xl text-[#40013b]"
+          style={{ fontFamily: "Bebas Neue, sans-serif" }}
         >
           Contato
         </motion.h2>
 
         <motion.p
           variants={itemVariants}
-          className="mt-4 text-lg text-[#40013b]/80"
+          className="mt-4 text-lg lg:text-[1.5rem] text-[#40013b]/80"
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
           Para esclarecimentos, entre em contato pelo e-mail:
@@ -46,7 +46,7 @@ function Contato() {
         <motion.a
           variants={itemVariants}
           href={`mailto:${userEmail}`}
-          className="mt-2 inline-block text-xl font-semibold text-[#40013b] transition-colors hover:text-[#2d002a] underline"
+          className="mt-2 inline-block text-2xl font-semibold text-[#40013b] transition-colors hover:text-[#2d002a] underline"
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
           {userEmail}

@@ -72,52 +72,54 @@ function ContestRules() {
   ];
 
   return (
-    <div className="text-white py-16 md:py-24 px-4 sm:px-10">
-      <h2
-        className="text-[#ffc961] text-center italic px-8 py-2 rounded-xl text-7xl lg:text-8xl tracking-wide mb-12"
-        style={{ fontFamily: "Bebas Neue, sans-serif" }}
-      >
-        REGRAS DO CONCURSO
-      </h2>
+    <div className="py-16 md:py-24 px-4 sm:px-10 lg:px-24 xl:px-40 pt-10 2xl:px-60">
+      <div className=" text-white">
+        <h2
+          className="text-[#ffc961] text-center italic px-8 py-2 rounded-xl text-7xl lg:text-8xl tracking-wide mb-12"
+          style={{ fontFamily: "Bebas Neue, sans-serif" }}
+        >
+          REGRAS DO CONCURSO
+        </h2>
 
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        className="container max-w-5xl mx-auto bg-[#40013b] p-6 md:p-10 rounded-2xl border-2 border-[#5a1c54]"
-      >
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
-          {/* Coluna da Esquerda (Regras Gerais) */}
-          <div className="md:col-span-2">
-            <h3 className="text-2xl font-bold text-white mb-6">
-              O que você precisa saber:
-            </h3>
-            <ul className="space-y-4 text-base text-gray-300">
-              {generalRules.map((rule, index) => (
-                <RuleItem key={index} icon={<CheckIcon />}>
-                  {rule}
-                </RuleItem>
-              ))}
-            </ul>
-          </div>
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          className="mx-auto bg-[#40013b] p-6 md:p-10 rounded-2xl border-2 border-[#5a1c54]"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
+            {/* Coluna da Esquerda (Regras Gerais) */}
+            <div className="md:col-span-2">
+              <h3 className="text-2xl font-bold text-white mb-6">
+                O que você precisa saber:
+              </h3>
+              <ul className="space-y-4 text-base text-gray-300">
+                {generalRules.map((rule, index) => (
+                  <RuleItem key={index} icon={<CheckIcon />}>
+                    {rule}
+                  </RuleItem>
+                ))}
+              </ul>
+            </div>
 
-          {/* Coluna da Direita (Proibições) */}
-          <div>
-            <h3 className="flex items-center gap-2 text-2xl font-bold text-white mb-6">
-              <ForbiddenIcon />
-              <span>É Proibido</span>
-            </h3>
-            <ul className="space-y-4 text-base text-gray-300">
-              {forbiddenRules.map((rule, index) => (
-                <RuleItem key={index} icon={<ForbiddenIcon />}>
-                  {rule}
-                </RuleItem>
-              ))}
-            </ul>
+            {/* Coluna da Direita (Proibições) */}
+            <div>
+              <h3 className="flex items-center gap-2 text-2xl font-bold text-white mb-6">
+                <ForbiddenIcon />
+                <span>É Proibido</span>
+              </h3>
+              <ul className="space-y-4 text-base text-gray-300">
+                {forbiddenRules.map((rule, index) => (
+                  <RuleItem key={index} icon={<ForbiddenIcon />}>
+                    {rule}
+                  </RuleItem>
+                ))}
+              </ul>
+            </div>
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </div>
   );
 }

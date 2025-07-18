@@ -186,8 +186,8 @@ function CategoryCards() {
   const handleCardClick = (category) => setSelectedCategory(category);
 
   return (
-    <div className="py-16 md:py-24 px-4 sm:px-10">
-      <div className="container max-w-6xl mx-auto">
+    <div className="py-16 md:py-24 px-4 sm:px-10 lg:px-24 xl:px-40 pt-10 2xl:px-60">
+      <div className="mx-auto">
         <motion.div
           variants={itemVariants}
           initial="hidden"

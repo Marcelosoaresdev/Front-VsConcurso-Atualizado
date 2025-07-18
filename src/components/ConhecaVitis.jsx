@@ -1,7 +1,6 @@
 import React from "react";
 // 1. Importando o 'motion' para animações
 import { motion } from "framer-motion";
-import logoVitis from "../assets/imagens/logoVitis.png";
 
 // 2. Definindo as animações que vamos usar
 const containerVariants = {
@@ -20,9 +19,9 @@ const itemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
 };
 
-function ConhecaVitis({ logoSrc = logoVitis, logoAlt = "Logo Vitis Souls" }) {
+function ConhecaVitis() {
   return (
-    <section className="bg-[#add083] py-16 md:py-24 px-4 sm:px-6 lg:px-8">
+    <section className="bg-[#add083] px-4 sm:px-6 lg:px-8">
       {/* 3. Container da animação: ele controla quando a animação começa */}
       <motion.div
         variants={containerVariants}
@@ -31,17 +30,9 @@ function ConhecaVitis({ logoSrc = logoVitis, logoAlt = "Logo Vitis Souls" }) {
         viewport={{ once: true, amount: 0.3 }} // Anima apenas uma vez
         className="max-w-4xl mx-auto flex flex-col items-center text-center space-y-6"
       >
-        {/* 4. Cada elemento filho agora tem sua própria animação */}
-        <motion.img
-          src={logoSrc}
-          alt={logoAlt}
-          variants={itemVariants}
-          className="h-40 w-auto"
-        />
-
         <motion.h1
           variants={itemVariants}
-          className="text-[#40013b] text-5xl sm:text-6xl lg:text-7xl font-bold uppercase tracking-wider"
+          className="text-[#40013b] text-5xl sm:text-6xl lg:text-[10rem] font-bold uppercase tracking-wider"
           style={{ fontFamily: "Bebas Neue, sans-serif" }}
         >
           Conheça a <br /> Vitis Souls

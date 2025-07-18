@@ -86,7 +86,7 @@ function AccordionItem({ item, isOpen, onClick }) {
         className="w-full flex justify-between items-center text-left py-5 px-2 cursor-pointer"
       >
         <h3
-          className={`text-lg md:text-xl font-semibold transition-colors ${
+          className={`text-lg lg:text-[1.5rem] font-semibold transition-colors ${
             isOpen ? "text-[#40013b]" : "text-gray-800"
           }`}
           style={{ fontFamily: "'Inter', sans-serif" }}
@@ -119,7 +119,7 @@ function AccordionItem({ item, isOpen, onClick }) {
         style={{ maxHeight: isOpen ? "1000px" : "0" }}
       >
         <div
-          className="pb-5 px-2 text-gray-700 leading-relaxed"
+          className="pb-5 px-2 text-xl text-gray-700 leading-relaxed"
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
           {item.answer}
@@ -143,7 +143,7 @@ function Accordions() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
-          className="text-4xl sm:text-5xl text-center text-[#40013b] uppercase mb-12"
+          className="text-4xl sm:text-7xl text-center text-[#40013b] uppercase mb-12"
           style={{ fontFamily: "Bebas Neue, sans-serif" }}
         >
           Perguntas Frequentes

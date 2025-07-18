@@ -51,8 +51,8 @@ const itemVariants = {
 // --- COMPONENTE ---
 function CriteriosAvaliacao() {
   return (
-    <section className=" text-white py-16 md:py-24 px-4 sm:px-10">
-      <div className="max-w-5xl mx-auto">
+    <section className=" text-white py-16 md:py-24 px-4 sm:px-10 lg:px-24 xl:px-40 pt-10 2xl:px-60">
+      <div className="mx-auto">
         <motion.h2
           variants={itemVariants}
           initial="hidden"
