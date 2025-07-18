@@ -270,10 +270,14 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
               />
 
               {/* ▼▼▼ NOVO CAMPO DE INSTAGRAM ▼▼▼ */}
+              {/* Container que permite o posicionamento absoluto do ícone */}
               <div className="relative">
-                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-                  @
-                </span>
+                {/* O ícone "@" posicionado de forma absoluta */}
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <span className="text-gray-400">@</span>
+                </div>
+
+                {/* Seu input com o padding esquerdo para não sobrepor o ícone */}
                 <input
                   type="text"
                   name="perfilInstagram"
@@ -281,10 +285,15 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
                   value={dados.perfilInstagram}
                   onChange={handleChange}
                   required
-                  // O padding esquerdo (pl-7) dá espaço para o @
-                  className="w-full p-3 pl-7 bg-[#2d002a] text-white border border-[#5a1c54] rounded-lg focus:ring-2 focus:ring-[#add083] focus:border-transparent transition"
+                  // O padding esquerdo (pl-8 ou pl-9) dá espaço para o @
+                  className="w-full p-3 pl-8 bg-[#2d002a] text-white border border-[#5a1c54] rounded-lg focus:ring-2 focus:ring-[#add083] focus:border-transparent transition"
                 />
               </div>
+
+              {/* O texto de ajuda com uma das novas sugestões */}
+              <p className="text-sm text-gray-300">
+                A avaliação considerará apenas os conteúdos publicados neste perfil.
+              </p>
 
               <div className="p-4 border border-[#5a1c54] rounded-lg bg-[#2d002a]/50">
                 <h4 className="font-bold text-white mb-2">

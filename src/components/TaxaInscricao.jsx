@@ -69,7 +69,7 @@ function TaxaInscricao() {
 
   return (
     <>
-      <section className=" py-16 md:py-24 px-4 sm:px-10 lg:px-24">
+      <section className="py-16 md:py-24 px-4 sm:px-10 lg:px-24 xl:px-40 pt-10 2xl:px-60">
         <motion.h2
           variants={itemVariants}
           initial="hidden"
@@ -94,7 +94,7 @@ function TaxaInscricao() {
               variants={itemVariants}
               whileHover={{ y: -8, scale: plano.destaque ? 1.07 : 1.04 }}
               transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
-              className={`relative border bg-[#40013b] rounded-2xl p-8 flex flex-col text-center text-white transition-shadow duration-300 ${
+              className={`relative border bg-[#40013b] rounded-2xl p-8 shadow-xl flex flex-col text-center text-white transition-shadow duration-300 ${
                 plano.destaque
                   ? "border-[#add083] scale-105 shadow-2xl shadow-[#add083]/10"
                   : "border-[#5a1c54]"
