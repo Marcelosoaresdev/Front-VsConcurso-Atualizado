@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import BannerTop from "./BannerTop";
 import VideoVertical from "./VideoVertical";
 import premioImage from "../assets/imagens/premio.png";
+import instagramImage from "../assets/imagens/instagram.svg";
+import tiktokImage from "../assets/imagens/tiktok.svg";
 
 // 2. Definindo as animações que vamos usar
 const containerVariants = {
@@ -30,6 +32,40 @@ function MainLayout() {
       {/* Banner principal (sem animação para não atrasar o carregamento inicial) */}
       <div className="rounded-3xl border border-[#5d3559] overflow-hidden h-[25vh] lg:h-[50vh] flex items-center justify-center">
         <BannerTop />
+      </div>
+      <div className="flex items-center justify-center gap-4 mt-4 mb-14">
+        <p
+          className="text-xl text-white"
+          style={{ fontFamily: "'Inter', sans-serif" }}
+        >
+          Nossas redes sociais:
+        </p>
+        <a
+          href="https://instagram.com/vitissouls"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Visitar Instagram"
+          className="p-1 rounded-fulltransition-colors"
+        >
+          <img
+            src={instagramImage}
+            alt="Instagram"
+            className="h-14 w-14 hover:scale-110 transition-transform duration-300"
+          />
+        </a>
+        <a
+          href="https://tiktok.com/@vitissouls_"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Visitar TikTok"
+          className="p-1 rounded-full transition-colors"
+        >
+          <img
+            src={tiktokImage}
+            alt="TikTok"
+            className="h-14 w-14 hover:scale-110 transition-transform duration-300"
+          />
+        </a>
       </div>
 
       {/* 3. Container da animação: ele controla quando a animação começa */}
