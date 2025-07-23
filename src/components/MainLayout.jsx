@@ -7,6 +7,7 @@ import VideoVertical from "./VideoVertical";
 import premioImage from "../assets/imagens/premio.png";
 import instagramImage from "../assets/imagens/instagram.svg";
 import tiktokImage from "../assets/imagens/tiktok.svg";
+import fotoFlavia from "../assets/imagens/fotoFlavia.jpg";
 
 // 2. Definindo as animações que vamos usar
 const containerVariants = {
@@ -33,24 +34,31 @@ function MainLayout() {
       <div className="rounded-3xl border border-[#5d3559] overflow-hidden h-[25vh] lg:h-[50vh] flex items-center justify-center">
         <BannerTop />
       </div>
-      <div className="flex items-center justify-center gap-4 mt-4 mb-14">
+      <div className="flex items-center justify-center gap-2 md:gap-4 mt-4 mb-14">
+        <div>
+          <img
+            src={fotoFlavia}
+            alt="Foto de Flávia, a criadora do concurso"
+            className="rounded-full w-70 h-70 object-cover border-4 border-[#5d3559]"
+          />
+        </div>
         <p
-          className="text-xl text-white"
+          className="lg:text-3xl text-xl md:text-xl text-white"
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
-          Nossas redes sociais:
+          Siga nossas redes sociais
         </p>
         <a
           href="https://instagram.com/vitissouls"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Visitar Instagram"
-          className="p-1 rounded-fulltransition-colors"
+          className="rounded-fulltransition-colors"
         >
           <img
             src={instagramImage}
             alt="Instagram"
-            className="h-14 w-14 hover:scale-110 transition-transform duration-300"
+            className="md:h-14 w-14 hover:scale-110 transition-transform duration-300"
           />
         </a>
         <a
@@ -58,12 +66,12 @@ function MainLayout() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Visitar TikTok"
-          className="p-1 rounded-full transition-colors"
+          className="rounded-full transition-colors"
         >
           <img
             src={tiktokImage}
             alt="TikTok"
-            className="h-14 w-14 hover:scale-110 transition-transform duration-300"
+            className="md:h-14 w-14 h-10 w-10 hover:scale-110 transition-transform duration-300"
           />
         </a>
       </div>
