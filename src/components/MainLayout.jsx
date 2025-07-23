@@ -58,7 +58,7 @@ function MainLayout() {
           <img
             src={instagramImage}
             alt="Instagram"
-            className="md:h-14 w-14 hover:scale-110 transition-transform duration-300"
+            className="md:h-14 md:w-14 h-12 w-12 hover:scale-110 transition-transform duration-300"
           />
         </a>
         <a
@@ -71,7 +71,7 @@ function MainLayout() {
           <img
             src={tiktokImage}
             alt="TikTok"
-            className="md:h-14 w-14 h-10 w-10 hover:scale-110 transition-transform duration-300"
+            className="md:h-14 md:w-14 h-12 w-12 hover:scale-110 transition-transform duration-300"
           />
         </a>
       </div>
