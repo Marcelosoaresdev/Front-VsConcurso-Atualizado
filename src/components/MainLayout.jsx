@@ -90,33 +90,63 @@ function MainLayout() {
           variants={itemVariants}
           className="flex flex-col gap-4 sm:gap-6 w-full md:w-2/3"
         >
-          <div className="relative border bg-[#40013b] border-[#5a1c54] rounded-2xl p-6 md:p-6 lg:p-10 flex flex-col justify-center grow">
+          <div className="relative border-2 bg-[#40013b] border-[#5a1c54] rounded-2xl p-6 md:p-8 lg:p-12 flex flex-col items-center pt-16 md:pt-20 lg:pt-24 overflow-visible">
+            {/* Title with better positioning and responsive line breaks */}
             <h2
-              className="absolute -top-10 sm:-top-8 md:-top-10 left-1/2 -translate-x-1/2 text-[#ffc961] text-center italic uppercase px-2 sm:px-8 py-2 rounded-xl text-5xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-8xl tracking-wide"
-              style={{ fontFamily: "Bebas Neue, sans-serif" }}
+              className="absolute -top-6 sm:-top-8 md:-top-10 left-1/2 -translate-x-1/2 
+             text-[#ffc961] text-center italic uppercase px-6 py-3 rounded-xl 
+             bg-[#40013b] border-2 border-[#5a1c54] z-10 max-w-[700px] w-full leading-tight"
+              style={{
+                fontFamily: "Bebas Neue, sans-serif",
+                fontSize: "clamp(2rem, 4vw, 3rem)", // menor em desktop pra caber melhor
+                lineHeight: "1.1",
+              }}
             >
-              O QUE É O<br />
-              CONCURSO?
+              Mostre sua Criatividade
+              <br />e Concorra a até R$3.000!
             </h2>
 
-            {/* 4. TIPOGRAFIA: Nova fonte 'Inter' e classes de texto melhoradas */}
-            <p
-              className="text-gray-300 text-center text-base md:text-lg xl:text-2xl leading-relaxed mt-8 sm:mt-20 md:mt-20 lg:mt-30"
-              style={{ fontFamily: "'Inter', sans-serif" }}
-            >
-              O concurso é uma iniciativa para incentivar pessoas criativas a
-              criarem conteúdos originais e inovadores que ajudem na divulgação
-              dos mini cursos da Vitis Souls.
-            </p>
-            <p
-              className="text-gray-300 text-center text-base md:text-lg xl:text-2xl  leading-relaxed mt-4 md:mt-6"
-              style={{ fontFamily: "'Inter', sans-serif" }}
-            >
-              Os mini cursos são uma ferramenta prática, embasada
-              cientificamente e com diversos aprendizados para elevar sua vida a
-              um novo nível, com temas variados desde vida financeira até
-              objetivos futuros e saúde física.
-            </p>
+            {/* Content with improved spacing and typography */}
+            <div className="mt-8 md:mt-10 lg:mt-12 w-full max-w-3xl text-center space-y-6">
+              <p
+                className="text-gray-300 text-lg md:text-xl lg:text-2xl leading-relaxed md:leading-relaxed"
+                style={{ fontFamily: "'Inter', sans-serif" }}
+              >
+                O concurso é uma iniciativa para incentivar
+                <strong className="text-[#ffc961] font-semibold">
+                  {" "}
+                  pessoas criativas{" "}
+                </strong>
+                a criarem{" "}
+                <span className="text-[#ffc961]">
+                  conteúdos originais e inovadores{" "}
+                </span>
+                que ajudem na divulgação dos{" "}
+                <strong className="text-white">mini cursos</strong>
+                da <strong className="text-white">Vitis Souls</strong>.
+              </p>
+
+              <p
+                className="text-gray-300 text-lg md:text-xl lg:text-2xl leading-relaxed md:leading-relaxed"
+                style={{ fontFamily: "'Inter', sans-serif" }}
+              >
+                Os <strong className="text-white">mini cursos</strong> são uma
+                <strong className="text-[#ffc961]"> ferramenta prática</strong>,
+                embasada cientificamente e com{" "}
+                <span className="text-white">diversos aprendizados</span>
+                para{" "}
+                <strong className="text-[#ffc961]">
+                  elevar sua vida a um novo nível
+                </strong>
+                , com temas variados desde{" "}
+                <strong className="text-white">vida financeira </strong>
+                até{" "}
+                <strong className="text-white">
+                  objetivos futuros e saúde física
+                </strong>
+                .
+              </p>
+            </div>
           </div>
 
           <img
