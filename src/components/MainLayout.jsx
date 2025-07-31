@@ -122,8 +122,8 @@ function MainLayout() {
                   conteúdos originais e inovadores{" "}
                 </span>
                 que ajudem na divulgação dos{" "}
-                <strong className="text-white">mini cursos</strong>
-                da <strong className="text-white">Vitis Souls</strong>.
+                <strong className="text-white">mini cursos</strong> da{" "}
+                <strong className="text-white">Vitis Souls</strong>.
               </p>
 
               <p
@@ -133,8 +133,7 @@ function MainLayout() {
                 Os <strong className="text-white">mini cursos</strong> são uma
                 <strong className="text-[#ffc961]"> ferramenta prática</strong>,
                 embasada cientificamente e com{" "}
-                <span className="text-white">diversos aprendizados</span>
-                para{" "}
+                <span className="text-white">diversos aprendizados </span> para{" "}
                 <strong className="text-[#ffc961]">
                   elevar sua vida a um novo nível
                 </strong>
