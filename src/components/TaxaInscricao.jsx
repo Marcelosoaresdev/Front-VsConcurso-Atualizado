@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import ModalFormulario from "./ModalFormulario"; // 1. Importe o componente do modal
-//src/components/TaxaInscricao.jsx
+import ModalFormulario from "./ModalFormulario";
 
 // --- ÍCONE ---
 const CheckIcon = () => (
@@ -27,25 +26,19 @@ const planos = [
     id: "plano1",
     titulo: "1 Categoria",
     preco: "15",
-    // backendUrl: `...`  <-- REMOVA ESTA LINHA
     features: ["Inscrição em 1 categoria", "Chance de ganhar R$1000,00"],
   },
   {
     id: "plano2",
     titulo: "2 Categorias",
     preco: "25",
-    // backendUrl: `...`  <-- REMOVA ESTA LINHA
     features: ["Inscrição em 2 categorias", "Chance de ganhar R$2000,00"],
   },
   {
     id: "plano3",
     titulo: "3 Categorias",
     preco: "35",
-    // backendUrl: `...`  <-- REMOVA ESTA LINHA
-    features: [
-      "Inscrição em 3 categorias",
-      "Chance de ganhar R$3000,00",
-    ],
+    features: ["Inscrição em 3 categorias", "Chance de ganhar R$3000,00"],
     destaque: true,
   },
 ];
@@ -64,12 +57,15 @@ const itemVariants = {
 };
 
 function TaxaInscricao() {
-  // 2. Estado para controlar qual plano está selecionado (e se o modal deve abrir)
   const [selectedPlan, setSelectedPlan] = useState(null);
 
   return (
     <>
-      <section className="py-16 md:py-24 px-4 sm:px-10 lg:px-24 xl:px-40 pt-10 2xl:px-60">
+      {/* ✅ ADICIONADO O ID "inscricao" AQUI PARA SERVIR DE ÂNCORA */}
+      <section
+        id="inscricao"
+        className="py-16 md:py-24 px-4 sm:px-10 lg:px-24 xl:px-40 pt-10 2xl:px-60"
+      >
         <motion.h2
           variants={itemVariants}
           initial="hidden"
@@ -128,8 +124,6 @@ function TaxaInscricao() {
                   </li>
                 ))}
               </ul>
-
-              {/* 3. O botão agora tem um onClick que define o plano selecionado */}
               <button
                 onClick={() => setSelectedPlan(plano)}
                 className="cursor-pointer mt-6 w-full bg-[#add083] text-black font-bold text-lg px-8 py-3 rounded-lg uppercase hover:bg-opacity-90 transition-colors"
@@ -141,12 +135,11 @@ function TaxaInscricao() {
         </motion.div>
       </section>
 
-      {/* 4. O Modal só é renderizado se um plano for selecionado, e passamos os dados para ele */}
       <AnimatePresence>
         {selectedPlan && (
           <ModalFormulario
             plano={selectedPlan}
-            apiUrl={API_URL} // 👈 VERIFIQUE SE ESTA LINHA EXISTE E ESTÁ CORRETA
+            apiUrl={API_URL}
             onClose={() => setSelectedPlan(null)}
           />
         )}

@@ -9,3 +9,7 @@
     display: inline-block;
     animation: marquee 10s linear infinite;
   }
+
+  html {
+  scroll-behavior: smooth;
+}

@@ -11,6 +11,7 @@ import ConhecaVitis from "./components/ConhecaVitis";
 import TaxaInscricao from "./components/TaxaInscricao";
 import Accordion from "./components/Accordion";
 import Contato from "./components/Contato";
+import BotaoFlutuante from "./components/BotaoFlutuante";
 
 // ▼▼▼ IMPORTE OS 3 NOVOS COMPONENTES DE UMA VEZ ▼▼▼
 import { Sucesso, Falha, Pendente } from "./components/StatusPages"; // Ajuste o caminho se necessário
@@ -29,6 +30,7 @@ function PaginaPrincipal() {
       <ConhecaVitis />
       <Accordion />
       <Contato />
+      <BotaoFlutuante />
     </>
   );
 }

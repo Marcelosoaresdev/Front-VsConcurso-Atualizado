@@ -29,52 +29,62 @@ const itemVariants = {
 
 function MainLayout() {
   return (
-    <section className="px-4 sm:px-10 lg:px-24 xl:px-40 pt-10 2xl:px-60 space-y-10">
+    <section className="px-4 sm:px-10 lg:px-24 xl:px-40 pt-4 2xl:px-60 space-y-10">
       {/* Banner principal (sem animação para não atrasar o carregamento inicial) */}
       <div className="rounded-3xl border border-[#5d3559] overflow-hidden h-[25vh] lg:h-[50vh] flex items-center justify-center">
         <BannerTop />
       </div>
-      <div className="flex items-center justify-center gap-2 md:gap-4 mt-4 mb-14">
-        <div>
+      {/* Redes sociais melhoradas para tablets */}
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mt-4 mb-14 text-center sm:text-left">
+        {/* Foto da Flávia */}
+        <div className="flex-shrink-0">
           <img
             src={fotoFlavia}
             alt="Foto de Flávia, a criadora do concurso"
-            className="rounded-full w-70 h-70 object-cover border-4 border-[#5d3559]"
+            className="rounded-full w-28 h-28 md:w-32 md:h-32 object-cover object-[center_30%]"
             loading="lazy"
           />
         </div>
-        <p
-          className="lg:text-3xl text-xl md:text-xl text-white"
-          style={{ fontFamily: "'Inter', sans-serif" }}
-        >
-          Siga nossas redes sociais
-        </p>
-        <a
-          href="https://instagram.com/vitissouls"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Visitar Instagram"
-          className="rounded-fulltransition-colors"
-        >
-          <img
-            src={instagramImage}
-            alt="Instagram"
-            className="md:h-14 md:w-14 h-12 w-12 hover:scale-110 transition-transform duration-300"
-          />
-        </a>
-        <a
-          href="https://tiktok.com/@vitissouls_"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Visitar TikTok"
-          className="rounded-full transition-colors"
-        >
-          <img
-            src={tiktokImage}
-            alt="TikTok"
-            className="md:h-14 md:w-14 h-12 w-12 hover:scale-110 transition-transform duration-300"
-          />
-        </a>
+
+        {/* Texto + ícones */}
+        <div className="flex flex-col sm:flex-row items-center gap-4">
+          <p
+            className="lg:text-3xl text-xl md:text-xl text-white"
+            style={{ fontFamily: "'Inter', sans-serif" }}
+          >
+            Siga nossas redes sociais
+          </p>
+
+          <div className="flex items-center gap-4">
+            <a
+              href="https://instagram.com/vitissouls"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visitar Instagram"
+              className="transition-transform hover:scale-110"
+            >
+              <img
+                src={instagramImage}
+                alt="Instagram"
+                className="md:h-14 md:w-14 h-12 w-12"
+              />
+            </a>
+
+            <a
+              href="https://tiktok.com/@vitissouls_"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visitar TikTok"
+              className="transition-transform hover:scale-110"
+            >
+              <img
+                src={tiktokImage}
+                alt="TikTok"
+                className="md:h-14 md:w-14 h-12 w-12"
+              />
+            </a>
+          </div>
+        </div>
       </div>
 
       {/* 3. Container da animação: ele controla quando a animação começa */}
@@ -146,6 +156,24 @@ function MainLayout() {
                 .
               </p>
             </div>
+          </div>
+
+          {/* ✅ SUGESTÃO APLICADA: Botão de CTA principal */}
+          <div className="text-center py-8">
+            <motion.a
+              href="#inscricao"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0px 10px 30px rgba(173, 208, 131, 0.4)",
+              }}
+              className="inline-block bg-[#ffc961] text-black font-bold text-xl md:text-2xl px-8 py-4 rounded-xl shadow-lg"
+              style={{ fontFamily: "'Inter', sans-serif" }}
+            >
+              Quero me inscrever e concorrer a R$3.000!
+            </motion.a>
           </div>
 
           <img
