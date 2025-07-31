@@ -103,7 +103,8 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
 
-  const maxCategorias = parseInt(plano.titulo.charAt(0));
+  // Agora permite selecionar quantas categorias quiser (mínimo 1)
+  const minCategorias = 1;
 
   const handleCategoryChange = (e) => {
     const { value, checked } = e.target;
@@ -121,16 +122,16 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
     const { nome, email, telefone, perfilInstagram } = dados;
     const unmaskedPhone = telefone.replace(/\D/g, "");
 
-    // ▼▼▼ Validação agora inclui o perfil do Instagram ▼▼▼
+    // ▼▼▼ Validação agora permite múltiplas categorias (mínimo 1) ▼▼▼
     const isValid =
       nome.trim() !== "" &&
       email.trim() !== "" &&
       unmaskedPhone.length === 11 &&
       perfilInstagram.trim() !== "" && // Garante que não está vazio
-      categoriasSelecionadas.length === maxCategorias;
+      categoriasSelecionadas.length >= minCategorias;
 
     setIsFormValid(isValid);
-  }, [dados, categoriasSelecionadas, maxCategorias]);
+  }, [dados, categoriasSelecionadas, minCategorias]);
 
   const handleChange = (e) => {
     setDados({ ...dados, [e.target.name]: e.target.value });
@@ -144,23 +145,32 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
     setErrorMessage("");
 
     try {
+      // Envia os dados para o backend MongoDB
       const response = await axios.post(`${apiUrl}/api/inscricao`, {
-        ...dados,
-        // Adiciona o @ de volta antes de enviar, para padronizar
-        perfilInstagram: `@${dados.perfilInstagram}`,
-        plano: plano,
+        nome: dados.nome,
+        email: dados.email,
+        telefone: dados.telefone,
+        perfilInstagram: dados.perfilInstagram.startsWith('@') ? dados.perfilInstagram : `@${dados.perfilInstagram}`,
+        plano: {
+          id: plano.id,
+          titulo: plano.titulo,
+          preco: plano.preco || "0",
+          tipo: plano.tipo || "gratuito"
+        },
         categoriasEscolhidas: categoriasSelecionadas,
+        dataInscricao: new Date().toISOString(),
+        status: "inscrito"
       });
 
-      if (
-        response &&
-        response.data &&
-        typeof response.data.checkoutUrl === "string"
-      ) {
+      // Verifica se a inscrição foi salva com sucesso
+      if (response && response.data) {
+        console.log("Inscrição salva com sucesso:", response.data);
         setStatus("success");
+        
+        // Auto-fecha o modal após 3 segundos
         setTimeout(() => {
-          window.location.href = response.data.checkoutUrl;
-        }, 2000);
+          onClose();
+        }, 3000);
       } else {
         throw new Error("Resposta inválida do servidor.");
       }
@@ -169,7 +179,7 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
       setStatus("error");
       setErrorMessage(
         error.response?.data?.message ||
-          "Não foi possível gerar o link de pagamento."
+          "Erro ao processar sua inscrição. Tente novamente."
       );
     }
   };
@@ -186,12 +196,53 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
             exit="exit"
             className="text-center flex flex-col items-center space-y-4 text-white"
           >
-            {" "}
-            <CheckCircleIcon />{" "}
-            <h3 className="text-2xl font-bold">Inscrição Enviada!</h3>{" "}
-            <p className="text-gray-300">
-              Você será redirecionado para o pagamento...
-            </p>{" "}
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ 
+                type: "spring", 
+                stiffness: 200, 
+                damping: 15, 
+                delay: 0.2 
+              }}
+            >
+              <CheckCircleIcon />
+            </motion.div>
+            
+            <motion.h3
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="text-3xl font-bold text-[#add083]"
+              style={{ fontFamily: "Bebas Neue, sans-serif" }}
+            >
+              🎉 Inscrição Realizada com Sucesso! 🎉
+            </motion.h3>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+              className="space-y-2"
+            >
+              <p className="text-gray-300 text-lg">
+                Parabéns! Você está oficialmente inscrito no concurso!
+              </p>
+              <p className="text-gray-400 text-sm">
+                Agora é só criar seu conteúdo e postar no Instagram com #vitissouls
+              </p>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.8 }}
+              className="bg-[#2d002a] border border-[#add083] rounded-lg p-4 mt-4"
+            >
+              <p className="text-sm text-[#add083] font-semibold">
+                ✨ Boa sorte no concurso! ✨
+              </p>
+            </motion.div>
           </motion.div>
         );
       case "error":
@@ -294,7 +345,7 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
 
               <div className="p-4 border border-[#5a1c54] rounded-lg bg-[#2d002a]/50">
                 <h4 className="font-bold text-white mb-2">
-                  Selecione {maxCategorias} Categoria(s):
+                  Selecione as categorias que deseja participar:
                 </h4>
                 <div className="space-y-2">
                   {allCategories.map((cat) => (
@@ -307,19 +358,14 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
                         value={cat}
                         onChange={handleCategoryChange}
                         checked={categoriasSelecionadas.includes(cat)}
-                        disabled={
-                          categoriasSelecionadas.length >= maxCategorias &&
-                          !categoriasSelecionadas.includes(cat)
-                        }
-                        className="w-5 h-5 bg-gray-700 border-gray-600 rounded text-[#add083] focus:ring-2 focus:ring-[#add083]/50 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-5 h-5 bg-gray-700 border-gray-600 rounded text-[#add083] focus:ring-2 focus:ring-[#add083]/50"
                       />
                       <span>{cat}</span>
                     </label>
                   ))}
                 </div>
                 <p className="text-xs text-gray-400 mt-2">
-                  Selecionadas: {categoriasSelecionadas.length} de{" "}
-                  {maxCategorias}
+                  Selecione pelo menos 1 categoria para participar
                 </p>
               </div>
 
@@ -331,7 +377,7 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
                 {status === "submitting" ? (
                   <SpinnerIcon />
                 ) : (
-                  `Pagar R$${plano.preco}`
+                  "Finalizar Inscrição Gratuita"
                 )}
               </button>
             </form>

@@ -56,8 +56,8 @@ const faqData = [
           <li>Prosperidade com consciência</li>
         </ul>
         <p className="mt-4">
-          Os cursos são 100% online, com linguagem direta e sensível e preço
-          acessível — especialmente para estudantes e professores.
+          Os cursos são 100% online, com linguagem direta e sensível —
+          especialmente desenvolvidos para estudantes e professores.
         </p>
       </>
     ),

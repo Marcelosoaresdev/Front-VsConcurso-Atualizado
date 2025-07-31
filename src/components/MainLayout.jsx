@@ -202,10 +202,10 @@ function MainLayout() {
           className="text-center text-6xl font-bold mb-10 text-[#ffc961]"
           style={{ fontFamily: "Bebas Neue, sans-serif" }}
         >
-          Como se Inscrever em 4 Passos
+          Como se Inscrever em 3 Passos
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Passo 1 */}
           <motion.div
             whileHover={{ y: -5 }}
@@ -247,20 +247,6 @@ function MainLayout() {
               3
             </div>
             <h3 className="text-xl font-bold text-white mb-2">
-              Pague a inscrição
-            </h3>
-            <p className="text-gray-300">Pagamento via PIX ou cartão</p>
-          </motion.div>
-
-          {/* Passo 4 */}
-          <motion.div
-            whileHover={{ y: -5 }}
-            className="bg-[#40013b] border-2 border-[#5a1c54] rounded-2xl p-6 flex flex-col items-center text-center"
-          >
-            <div className="w-16 h-16 rounded-full bg-[#ffc961] flex items-center justify-center text-black text-2xl font-bold mb-4">
-              4
-            </div>
-            <h3 className="text-xl font-bold text-white mb-2">
               Poste seu conteúdo
             </h3>
             <p className="text-gray-300">
@@ -291,7 +277,7 @@ function MainLayout() {
           >
             <div className="inline-flex items-center  border-2 border-[#ffc961] rounded-2xl px-8 py-4">
               <span className="text-xl text-[#ffc961] font-semibold">
-                E Depois disso, tudo pronto! Sua inscrição estará concluída
+                E Depois disso, tudo pronto! Você estará participando do concurso
               </span>
             </div>
           </motion.div>

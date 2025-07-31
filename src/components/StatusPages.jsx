@@ -103,7 +103,7 @@ export function Sucesso() {
   return (
     <StatusPageLayout
       icon={<SucessoIcon />}
-      title="Pagamento Aprovado!"
+      title="Inscrição Realizada com Sucesso!"
       titleColor="text-green-400"
       description="Sua inscrição foi confirmada com sucesso. Enviamos todos os detalhes para o seu e-mail. Bem-vindo(a) ao concurso!"
       buttonText="Voltar para o Início"
@@ -116,9 +116,9 @@ export function Falha() {
   return (
     <StatusPageLayout
       icon={<FalhaIcon />}
-      title="Pagamento Recusado"
+      title="Erro na Inscrição"
       titleColor="text-red-500"
-      description="Não foi possível processar seu pagamento. Verifique os dados com sua operadora de cartão ou tente um método de pagamento diferente."
+      description="Não foi possível processar sua inscrição. Verifique sua conexão com a internet e tente novamente."
       buttonText="Tentar Novamente"
       buttonLink="/"
     />
@@ -129,9 +129,9 @@ export function Pendente() {
   return (
     <StatusPageLayout
       icon={<PendenteIcon />}
-      title="Pagamento Pendente"
+      title="Inscrição em Processamento"
       titleColor="text-yellow-400"
-      description="Seu pagamento está sendo processado e estamos aguardando a confirmação. Isso pode levar alguns instantes, principalmente para pagamentos via boleto."
+      description="Sua inscrição está sendo processada e estamos aguardando a confirmação. Isso pode levar alguns instantes."
       buttonText="Voltar para o Início"
       buttonLink="/"
     />

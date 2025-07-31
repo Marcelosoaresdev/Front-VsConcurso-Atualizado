@@ -8,10 +8,10 @@ import Waves from "./components/Waves";
 import TextMarquee from "./components/TextMarquee";
 import CriteriosAvaliacao from "./components/CriteriosAvaliacao";
 import ConhecaVitis from "./components/ConhecaVitis";
-import TaxaInscricao from "./components/TaxaInscricao";
 import Accordion from "./components/Accordion";
 import Contato from "./components/Contato";
 import BotaoFlutuante from "./components/BotaoFlutuante";
+import FormularioInscricao from "./components/FormularioInscricao";
 
 // ▼▼▼ IMPORTE OS 3 NOVOS COMPONENTES DE UMA VEZ ▼▼▼
 import { Sucesso, Falha, Pendente } from "./components/StatusPages"; // Ajuste o caminho se necessário
@@ -25,7 +25,7 @@ function PaginaPrincipal() {
       <RegrasEObjetivos />
       <TextMarquee />
       <CriteriosAvaliacao />
-      <TaxaInscricao />
+      <FormularioInscricao />
       <Waves />
       <ConhecaVitis />
       <Accordion />
