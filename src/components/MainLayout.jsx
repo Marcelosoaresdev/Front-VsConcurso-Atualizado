@@ -15,16 +15,16 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.3, // Atraso entre a animação de cada item filho
+      staggerChildren: 0.1, // Reduzido de 0.3 para 0.1 - animação mais rápida
       ease: "easeInOut",
-      duration: 0.5,
+      duration: 0.3, // Reduzido de 0.5 para 0.3
     },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 30 }, // Começa invisível e 30px para baixo
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } }, // Anima para visível e na posição original
+  hidden: { opacity: 0, y: 20 }, // Reduzido de 30px para 20px
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }, // Reduzido de 0.7 para 0.4
 };
 
 function MainLayout() {
@@ -55,33 +55,45 @@ function MainLayout() {
             Siga nossas redes sociais
           </p>
 
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
             <a
               href="https://instagram.com/vitissouls"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Visitar Instagram"
-              className="transition-transform hover:scale-110"
+              aria-label="Visitar Instagram @vitissouls"
+              className="flex items-center gap-3 transition-transform hover:scale-105 group"
             >
               <img
                 src={instagramImage}
                 alt="Instagram"
                 className="md:h-14 md:w-14 h-12 w-12"
               />
+              <span
+                className="text-white text-lg md:text-xl font-medium group-hover:text-[#ffc961] transition-colors"
+                style={{ fontFamily: "'Inter', sans-serif" }}
+              >
+                @vitissouls
+              </span>
             </a>
 
             <a
               href="https://tiktok.com/@vitissouls_"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Visitar TikTok"
-              className="transition-transform hover:scale-110"
+              aria-label="Visitar TikTok @vitissouls_"
+              className="flex items-center gap-3 transition-transform hover:scale-105 group"
             >
               <img
                 src={tiktokImage}
                 alt="TikTok"
                 className="md:h-14 md:w-14 h-12 w-12"
               />
+              <span
+                className="text-white text-lg md:text-xl font-medium group-hover:text-[#ffc961] transition-colors"
+                style={{ fontFamily: "'Inter', sans-serif" }}
+              >
+                @vitissouls_
+              </span>
             </a>
           </div>
         </div>
@@ -91,8 +103,7 @@ function MainLayout() {
       <motion.div
         variants={containerVariants}
         initial="hidden"
-        whileInView="visible" // A animação começa quando o elemento entra na tela
-        viewport={{ once: true, amount: 0.2 }} // Anima apenas uma vez
+        animate="visible" // A animação começa automaticamente
         className="flex flex-col md:flex-row gap-10 md:gap-4 lg:gap-6 items-stretch"
       >
         {/* Coluna da Esquerda com animação */}
@@ -192,10 +203,9 @@ function MainLayout() {
         </motion.div>
       </motion.div>
       <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.1 }}
-        transition={{ duration: 0.7 }}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }} // Mudado de whileInView para animate
+        transition={{ duration: 0.5, delay: 0.6 }} // Adicionado delay para aparecer após o conteúdo principal
         className="mt-20"
       >
         <h2
@@ -277,7 +287,8 @@ function MainLayout() {
           >
             <div className="inline-flex items-center  border-2 border-[#ffc961] rounded-2xl px-8 py-4">
               <span className="text-xl text-[#ffc961] font-semibold">
-                E Depois disso, tudo pronto! Você estará participando do concurso
+                E Depois disso, tudo pronto! Você estará participando do
+                concurso
               </span>
             </div>
           </motion.div>

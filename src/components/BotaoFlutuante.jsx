@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-function BotaoFlutuante() {
+function BotaoFlutuante({ onOpenModal }) {
   const [showButton, setShowButton] = useState(false);
   const scrollTimeout = useRef(null);
 
@@ -32,17 +32,24 @@ function BotaoFlutuante() {
     };
   }, []);
 
+  const handleClick = () => {
+    if (onOpenModal) {
+      onOpenModal();
+    } else {
+      // Fallback para comportamento anterior se onOpenModal não for fornecido
+      document.getElementById("inscricao").scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
   return (
     <AnimatePresence>
       {showButton && (
         <motion.button
           key="botao-flutuante"
-          onClick={() => {
-            document.getElementById("inscricao").scrollIntoView({
-              behavior: "smooth",
-              block: "start",
-            });
-          }}
+          onClick={handleClick}
           className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-[#ffc961] to-[#ffb428] text-[#40013b] font-bold px-6 py-3 rounded-full shadow-xl hover:shadow-2xl transition-all cursor-pointer flex items-center gap-2"
           initial={{ opacity: 0, y: 50, scale: 1 }}
           animate={{
@@ -52,7 +59,7 @@ function BotaoFlutuante() {
           }}
           exit={{ opacity: 0, y: 50, scale: 1 }}
           transition={{ duration: 0.2 }}
-          whileHover={{ scale: 1.10 }}
+          whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 1 }}
           aria-label="Inscreva-se no concurso"
         >

@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
 
 // Seus componentes de seção
 import MainLayout from "./components/MainLayout";
@@ -12,12 +14,27 @@ import Accordion from "./components/Accordion";
 import Contato from "./components/Contato";
 import BotaoFlutuante from "./components/BotaoFlutuante";
 import FormularioInscricao from "./components/FormularioInscricao";
+import ModalFormulario from "./components/ModalFormulario";
 
 // ▼▼▼ IMPORTE OS 3 NOVOS COMPONENTES DE UMA VEZ ▼▼▼
 import { Sucesso, Falha, Pendente } from "./components/StatusPages"; // Ajuste o caminho se necessário
 
 // Componente que agrupa todas as seções da página inicial
 function PaginaPrincipal() {
+  const [showModal, setShowModal] = useState(false);
+
+  // Dados para o modal (mesma estrutura do FormularioInscricao)
+  const planoDados = {
+    id: "inscricao-gratuita",
+    titulo: "Inscrição Gratuita",
+    preco: "0",
+    features: [
+      "Participação em todas as categorias",
+      "Chance de ganhar R$3000,00",
+    ],
+    tipo: "gratuito",
+  };
+
   return (
     <>
       <MainLayout />
@@ -30,7 +47,17 @@ function PaginaPrincipal() {
       <ConhecaVitis />
       <Accordion />
       <Contato />
-      <BotaoFlutuante />
+      <BotaoFlutuante onOpenModal={() => setShowModal(true)} />
+
+      <AnimatePresence>
+        {showModal && (
+          <ModalFormulario
+            plano={planoDados}
+            apiUrl="https://backend-concurso.onrender.com"
+            onClose={() => setShowModal(false)}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 }
