@@ -26,7 +26,7 @@ function PaginaPrincipal() {
   // Dados para o modal (mesma estrutura do FormularioInscricao)
   const planoDados = {
     id: "inscricao-gratuita",
-    titulo: "Inscrição Gratuita",
+    titulo: "Gratuita",
     preco: "0",
     features: [
       "Participação em todas as categorias",

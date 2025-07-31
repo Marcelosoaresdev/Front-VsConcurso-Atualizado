@@ -121,7 +121,10 @@ function MainLayout() {
               style={{ fontFamily: "Bebas Neue, sans-serif" }}
             >
               Premiação Total:
-              <span className="text-[#ffc961] ml-3">R$ 3.000</span>
+              <br />
+              <span className="text-[#ffc961] text-5xl md:text-7xl lg:text-8xl block mt-2">R$ 3.000</span>
+              {/* Linha divisória lilás clara - largura total e mais fina */}
+              <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-[#c8a2e6] to-transparent mx-auto mt-6 rounded-full"></div>
             </h2>
             
             {/* Subtítulo profissional */}

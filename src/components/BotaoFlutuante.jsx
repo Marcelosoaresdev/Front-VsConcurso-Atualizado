@@ -19,7 +19,7 @@ function BotaoFlutuante({ onOpenModal }) {
       }
 
       // Mostrar botão apenas após rolar 300px para baixo
-      setShowButton(window.scrollY > 300);
+      setShowButton(window.scrollY > 180);
 
       // Limpa o timeout anterior
       clearTimeout(scrollTimeout.current);
