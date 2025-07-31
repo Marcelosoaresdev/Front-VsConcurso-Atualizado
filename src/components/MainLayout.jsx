@@ -99,6 +99,95 @@ function MainLayout() {
         </div>
       </div>
 
+      {/* Banner de Prêmios - Design Profissional */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="relative mb-16"
+      >
+        {/* Container principal - design limpo e elegante */}
+        <div className="bg-[#40013b] border border-[#5a1c54] rounded-xl p-8 md:p-12 shadow-lg relative overflow-hidden">
+          
+          {/* Linha decorativa superior */}
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#ffc961] to-transparent"></div>
+          
+          {/* Conteúdo principal */}
+          <div className="text-center">
+            
+            {/* Título principal - elegante */}
+            <h2 
+              className="text-3xl md:text-5xl font-bold text-white mb-6 tracking-wide"
+              style={{ fontFamily: "Bebas Neue, sans-serif" }}
+            >
+              Premiação Total:
+              <span className="text-[#ffc961] ml-3">R$ 3.000</span>
+            </h2>
+            
+            {/* Subtítulo profissional */}
+            <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed" style={{ fontFamily: "'Inter', sans-serif" }}>
+              Concurso de criatividade com premiação garantida para os melhores conteúdos
+            </p>
+            
+            {/* Grid de informações - layout limpo */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+              
+              {/* Prêmio por categoria */}
+              <div className="bg-[#40013b]/50 border border-[#5a1c54] rounded-lg p-6 hover:border-[#ffc961]/50 transition-colors">
+                <div className="text-center">
+                  <h3 
+                    className="text-3xl md:text-4xl font-bold text-[#ffc961] mb-3"
+                    style={{ fontFamily: "Bebas Neue, sans-serif" }}
+                  >
+                    R$ 1.000
+                  </h3>
+                  <p className="text-white font-medium mb-2 text-lg">por categoria vencedora</p>
+                  <p className="text-gray-400 text-base">Reels | Pitch | Design</p>
+                </div>
+              </div>
+
+              {/* Total de vencedores */}
+              <div className="bg-[#40013b]/50 border border-[#5a1c54] rounded-lg p-6 hover:border-[#add083]/50 transition-colors">
+                <div className="text-center">
+                  <h3 
+                    className="text-3xl md:text-4xl font-bold text-[#add083] mb-3"
+                    style={{ fontFamily: "Bebas Neue, sans-serif" }}
+                  >
+                    3 Vencedores
+                  </h3>
+                  <p className="text-white font-medium mb-2 text-lg">serão contemplados</p>
+                  <p className="text-gray-400 text-base">Um por categoria</p>
+                </div>
+              </div>
+
+              {/* Processo */}
+              <div className="bg-[#40013b]/50 border border-[#5a1c54] rounded-lg p-6 hover:border-[#ffc961]/50 transition-colors">
+                <div className="text-center">
+                  <h3 
+                    className="text-3xl md:text-4xl font-bold text-white mb-3"
+                    style={{ fontFamily: "Bebas Neue, sans-serif" }}
+                  >
+                    100% Online
+                  </h3>
+                  <p className="text-white font-medium mb-2 text-lg">Inscrição gratuita</p>
+                  <p className="text-gray-400 text-base">Processo transparente</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Call to action discreto */}
+            <div className="mt-8 pt-6 border-t border-[#5a1c54]">
+              <p className="text-gray-300 text-lg" style={{ fontFamily: "'Inter', sans-serif" }}>
+                Participe agora e concorra aos prêmios
+              </p>
+            </div>
+          </div>
+
+          {/* Linha decorativa inferior */}
+          <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#add083] to-transparent"></div>
+        </div>
+      </motion.div>
+
       {/* 3. Container da animação: ele controla quando a animação começa */}
       <motion.div
         variants={containerVariants}
