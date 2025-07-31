@@ -44,16 +44,16 @@ function BotaoFlutuante() {
             });
           }}
           className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-[#ffc961] to-[#ffb428] text-[#40013b] font-bold px-6 py-3 rounded-full shadow-xl hover:shadow-2xl transition-all cursor-pointer flex items-center gap-2"
-          initial={{ opacity: 0, y: 50, scale: 0.8 }}
+          initial={{ opacity: 0, y: 50, scale: 1 }}
           animate={{
             opacity: 1,
             y: 0,
             scale: 1,
           }}
-          exit={{ opacity: 0, y: 50, scale: 0.8 }}
-          transition={{ duration: 0.4 }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          exit={{ opacity: 0, y: 50, scale: 1 }}
+          transition={{ duration: 0.2 }}
+          whileHover={{ scale: 1.10 }}
+          whileTap={{ scale: 1 }}
           aria-label="Inscreva-se no concurso"
         >
           <span>Inscreva-se aqui</span>

@@ -164,7 +164,7 @@ function MainLayout() {
               href="#inscricao"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
               whileHover={{
                 scale: 1.05,
                 boxShadow: "0px 10px 30px rgba(173, 208, 131, 0.4)",
@@ -190,6 +190,130 @@ function MainLayout() {
             <VideoVertical />
           </div>
         </motion.div>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.7 }}
+        className="mt-20"
+      >
+        <h2
+          className="text-center text-6xl font-bold mb-10 text-[#ffc961]"
+          style={{ fontFamily: "Bebas Neue, sans-serif" }}
+        >
+          Como se Inscrever em 4 Passos
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Passo 1 */}
+          <motion.div
+            whileHover={{ y: -5 }}
+            className="bg-[#40013b] border-2 border-[#5a1c54] rounded-2xl p-6 flex flex-col items-center text-center"
+          >
+            <div className="w-16 h-16 rounded-full bg-[#ffc961] flex items-center justify-center text-black text-2xl font-bold mb-4">
+              1
+            </div>
+            <h3 className="text-xl font-bold text-white mb-2">
+              Escolha sua categoria
+            </h3>
+            <p className="text-gray-300">
+              Selecione entre Reels, Pitch ou Design
+            </p>
+          </motion.div>
+
+          {/* Passo 2 */}
+          <motion.div
+            whileHover={{ y: -5 }}
+            className="bg-[#40013b] border-2 border-[#5a1c54] rounded-2xl p-6 flex flex-col items-center text-center"
+          >
+            <div className="w-16 h-16 rounded-full bg-[#ffc961] flex items-center justify-center text-black text-2xl font-bold mb-4">
+              2
+            </div>
+            <h3 className="text-xl font-bold text-white mb-2">
+              Preencha o formulário
+            </h3>
+            <p className="text-gray-300">
+              Forneça seus dados básicos em 1 minuto
+            </p>
+          </motion.div>
+
+          {/* Passo 3 */}
+          <motion.div
+            whileHover={{ y: -5 }}
+            className="bg-[#40013b] border-2 border-[#5a1c54] rounded-2xl p-6 flex flex-col items-center text-center"
+          >
+            <div className="w-16 h-16 rounded-full bg-[#ffc961] flex items-center justify-center text-black text-2xl font-bold mb-4">
+              3
+            </div>
+            <h3 className="text-xl font-bold text-white mb-2">
+              Pague a inscrição
+            </h3>
+            <p className="text-gray-300">Pagamento via PIX ou cartão</p>
+          </motion.div>
+
+          {/* Passo 4 */}
+          <motion.div
+            whileHover={{ y: -5 }}
+            className="bg-[#40013b] border-2 border-[#5a1c54] rounded-2xl p-6 flex flex-col items-center text-center"
+          >
+            <div className="w-16 h-16 rounded-full bg-[#ffc961] flex items-center justify-center text-black text-2xl font-bold mb-4">
+              4
+            </div>
+            <h3 className="text-xl font-bold text-white mb-2">
+              Poste seu conteúdo
+            </h3>
+            <p className="text-gray-300">
+              Marque a gente e poste o conteúdo no seu perfil do Instagram com a
+              #vitissouls
+            </p>
+          </motion.div>
+        </div>
+
+        {/* Confirmação */}
+        <motion.div
+          initial={{ scale: 0.9 }}
+          animate={{ scale: 1 }}
+          transition={{
+            type: "spring",
+            stiffness: 300,
+          }}
+          className="mt-10 text-center"
+        >
+          <motion.div
+            initial={{ scale: 0.9 }}
+            animate={{ scale: 1 }}
+            transition={{
+              type: "spring",
+              stiffness: 300,
+            }}
+            className="mt-10 text-center"
+          >
+            <div className="inline-flex items-center  border-2 border-[#ffc961] rounded-2xl px-8 py-4">
+              <span className="text-xl text-[#ffc961] font-semibold">
+                E Depois disso, tudo pronto! Sua inscrição estará concluída
+              </span>
+            </div>
+          </motion.div>
+        </motion.div>
+
+        {/* Botão de CTA */}
+        <div className="text-center mt-12">
+          <motion.a
+            href="#inscricao"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            whileHover={{
+              scale: 1.05,
+              boxShadow: "0px 10px 30px rgba(173, 208, 131, 0.4)",
+            }}
+            className="inline-block bg-[#ffc961] text-black font-bold text-xl md:text-2xl px-8 py-4 rounded-xl shadow-lg"
+            style={{ fontFamily: "'Inter', sans-serif" }}
+          >
+            Iniciar Minha Inscrição Agora
+          </motion.a>
+        </div>
       </motion.div>
     </section>
   );
