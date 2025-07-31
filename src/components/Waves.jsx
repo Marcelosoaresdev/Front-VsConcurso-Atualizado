@@ -1,5 +1,5 @@
 import React from "react";
-import wavesPath from "../assets/imagens/wave_tree.png";
+import wavesPath from "../assets/imagens/wave_tree.webp";
 
 function Waves() {
   return (

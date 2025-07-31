@@ -1,4 +1,4 @@
-import CapaBanner from "../assets/imagens/capa_concurso_banner.png";
+import CapaBanner from "../assets/imagens/capa_concurso_banner.webp";
 
 function BannerTop() {
   return (

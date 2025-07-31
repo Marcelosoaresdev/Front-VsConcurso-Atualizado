@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 
 import BannerTop from "./BannerTop";
 import VideoVertical from "./VideoVertical";
-import premioImage from "../assets/imagens/premio.png";
+import premioImage from "../assets/imagens/premio.webp";
 import instagramImage from "../assets/imagens/instagram.svg";
 import tiktokImage from "../assets/imagens/tiktok.svg";
-import fotoFlavia from "../assets/imagens/fotoFlavia.jpg";
+import fotoFlavia from "../assets/imagens/fotoFlavia.webp";
 
 // 2. Definindo as animações que vamos usar
 const containerVariants = {
