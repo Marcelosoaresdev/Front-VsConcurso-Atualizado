@@ -9,6 +9,7 @@ function Waves() {
         alt="Onda decorativa"
         className="w-full block"
         draggable={false}
+        loading="lazy"
       />
     </div>
   );

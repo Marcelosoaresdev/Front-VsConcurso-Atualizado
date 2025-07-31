@@ -40,6 +40,7 @@ function MainLayout() {
             src={fotoFlavia}
             alt="Foto de Flávia, a criadora do concurso"
             className="rounded-full w-70 h-70 object-cover border-4 border-[#5d3559]"
+            loading="lazy"
           />
         </div>
         <p
@@ -122,6 +123,7 @@ function MainLayout() {
             src={premioImage}
             alt="Prêmio de R$1.000 para o vencedor de cada categoria"
             className="w-full h-auto max-w-md self-center"
+            fetchPriority="high"
           />
         </motion.div>
 
