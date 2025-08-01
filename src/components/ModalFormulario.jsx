@@ -167,20 +167,41 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
         console.log("Inscrição salva com sucesso:", response.data);
         setStatus("success");
         
-        // Auto-fecha o modal após 3 segundos
+        // Redireciona para a página de sucesso após 2 segundos
         setTimeout(() => {
           onClose();
-        }, 3000);
+          window.location.href = "/sucesso";
+        }, 2000);
       } else {
         throw new Error("Resposta inválida do servidor.");
       }
     } catch (error) {
       console.error("Erro ao enviar dados:", error);
+      
+      // Mesmo que dê erro na resposta, se a requisição foi processada e os dados
+      // já foram enviados com sucesso para o banco, redirecionamos para sucesso
+      if (error.response?.status === 500 && error.response?.data?.message?.includes("já existe")) {
+        console.log("Inscrição já processada, redirecionando para sucesso");
+        setTimeout(() => {
+          onClose();
+          window.location.href = "/sucesso";
+        }, 2000);
+        return;
+      }
+      
       setStatus("error");
       setErrorMessage(
         error.response?.data?.message ||
           "Erro ao processar sua inscrição. Tente novamente."
       );
+      
+      // Se for um erro realmente crítico, redireciona para a página de falha
+      if (error.response?.status >= 500) {
+        setTimeout(() => {
+          onClose();
+          window.location.href = "/falha";
+        }, 2000);
+      }
     }
   };
 
