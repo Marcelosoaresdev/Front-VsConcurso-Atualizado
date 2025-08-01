@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import { IMaskInput } from "react-imask";
+import { useNavigate } from "react-router-dom";
 
 const allCategories = ["REELS", "PITCH", "DESIGN"];
 
@@ -31,20 +32,18 @@ const SpinnerIcon = () => (
     ></path>{" "}
   </svg>
 );
-const CheckCircleIcon = () => (
-  <svg
-    className="w-20 h-20 text-[#add083]"
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
+const ProcessingIcon = () => (
+  <svg 
+    className="w-20 h-20 text-[#add083]" 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round"
   >
-    {" "}
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-    />{" "}
+    <circle cx="12" cy="12" r="10" />
+    <path d="M12 6v6l4 2" />
   </svg>
 );
 const ExclamationCircleIcon = () => (
@@ -86,9 +85,27 @@ const formVariants = {
     transition: { duration: 0.3, ease: "easeInOut" },
   },
 };
+const processingVariants = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: { 
+    opacity: 1, 
+    scale: 1,
+    transition: { 
+      duration: 0.5,
+      ease: "easeInOut"
+    }
+  },
+  exit: {
+    opacity: 0,
+    scale: 0.8,
+    transition: { duration: 0.3, ease: "easeInOut" },
+  }
+};
 
 function ModalFormulario({ plano, onClose, apiUrl }) {
   if (!plano) return null;
+  
+  const navigate = useNavigate();
 
   // ▼▼▼ Adicionado 'perfilInstagram' ao estado inicial ▼▼▼
   const [dados, setDados] = useState({
@@ -165,13 +182,18 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
       // Verifica se a inscrição foi salva com sucesso
       if (response && response.data) {
         console.log("Inscrição salva com sucesso:", response.data);
-        setStatus("success");
+        setStatus("processing");
         
-        // Redireciona para a página de sucesso após 5 segundos
+        // Redireciona para a página de sucesso após 3.5 segundos
         setTimeout(() => {
           onClose();
-          window.location.href = "/sucesso";
-        }, 6000);
+          navigate("/sucesso", { 
+            state: { 
+              nome: dados.nome,
+              categorias: categoriasSelecionadas
+            } 
+          });
+        }, 3500);
       } else {
         throw new Error("Resposta inválida do servidor.");
       }
@@ -182,10 +204,16 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
       // já foram enviados com sucesso para o banco, redirecionamos para sucesso
       if (error.response?.status === 500 && error.response?.data?.message?.includes("já existe")) {
         console.log("Inscrição já processada, redirecionando para sucesso");
+        setStatus("processing");
         setTimeout(() => {
           onClose();
-          window.location.href = "/sucesso";
-        }, 6000);
+          navigate("/sucesso", { 
+            state: { 
+              nome: dados.nome,
+              categorias: categoriasSelecionadas
+            } 
+          });
+        }, 3500);
         return;
       }
       
@@ -199,85 +227,93 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
       if (error.response?.status >= 500) {
         setTimeout(() => {
           onClose();
-          window.location.href = "/falha";
-        }, 5000);
+          navigate("/falha");
+        }, 3000);
       }
     }
   };
 
   const renderContent = () => {
     switch (status) {
-      case "success":
+      case "processing":
         return (
           <motion.div
-            key="success"
-            variants={formVariants}
+            key="processing"
+            variants={processingVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
             className="text-center flex flex-col items-center space-y-4 text-white"
           >
             <motion.div
-              initial={{ scale: 0, rotate: -10 }}
-              animate={{ scale: 1, rotate: 0 }}
-              transition={{ 
-                type: "spring", 
-                stiffness: 260, 
-                damping: 20, 
-                delay: 0.2 
+              animate={{ 
+                rotate: 360,
+                transition: {
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "linear"
+                }
               }}
             >
-              <CheckCircleIcon />
+              <ProcessingIcon />
             </motion.div>
             
             <motion.h3
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
+              transition={{ delay: 0.3 }}
               className="text-3xl font-bold text-[#add083]"
               style={{ fontFamily: "Bebas Neue, sans-serif" }}
             >
               <motion.span
-                animate={{ 
-                  scale: [1, 1.05, 1],
-                  textShadow: ["0px 0px 0px #add08380", "0px 0px 8px #add08380", "0px 0px 0px #add08380"]
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  repeatType: "reverse"
+                animate={{
+                  opacity: [1, 0.7, 1],
+                  transition: {
+                    duration: 1.5,
+                    repeat: Infinity,
+                    repeatType: "reverse"
+                  }
                 }}
               >
-                🎉 Inscrição Realizada com Sucesso! 🎉
+                Validando seus dados...
               </motion.span>
             </motion.h3>
             
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
+              transition={{ delay: 0.5 }}
               className="space-y-2"
             >
-              <p className="text-gray-300 text-lg font-medium">
-                Parabéns! Você está oficialmente inscrito no concurso!
+              <p className="text-gray-300 text-md">
+                Estamos processando sua inscrição, aguarde um momento.
               </p>
-              <p className="text-gray-400 text-sm">
-                Aguarde 5 segundos para ser redirecionado automaticamente.
-              </p>
-              <p className="text-gray-300 text-md mt-2">
-                Agora é só criar seu conteúdo e postar no Instagram com #vitissouls
-              </p>
-            </motion.div>
-            
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.8 }}
-              className="bg-[#2d002a] border border-[#add083] rounded-lg p-4 mt-4"
-            >
-              <p className="text-sm text-[#add083] font-semibold">
-                ✨ Boa sorte no concurso! ✨
-              </p>
+              <motion.div 
+                className="mt-2 flex space-x-1 justify-center"
+                animate={{
+                  transition: {
+                    staggerChildren: 0.3,
+                    repeat: Infinity,
+                    duration: 1.5
+                  }
+                }}
+              >
+                {[0, 1, 2].map((i) => (
+                  <motion.div
+                    key={i}
+                    className="w-2 h-2 bg-[#add083] rounded-full"
+                    animate={{
+                      y: ["0%", "-50%", "0%"],
+                    }}
+                    transition={{
+                      duration: 0.6,
+                      repeat: Infinity,
+                      repeatType: "reverse",
+                      delay: i * 0.1
+                    }}
+                  />
+                ))}
+              </motion.div>
             </motion.div>
           </motion.div>
         );

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 
 // --- ÍCONES SVG ---
@@ -64,6 +64,7 @@ const StatusPageLayout = ({
   description,
   buttonText,
   buttonLink,
+  extraContent,
 }) => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-[#2d002a] text-white text-center p-4">
@@ -81,11 +82,18 @@ const StatusPageLayout = ({
           {title}
         </h1>
         <p
-          className="text-lg text-gray-300 mb-8"
+          className="text-lg text-gray-300 mb-6"
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
           {description}
         </p>
+        
+        {extraContent && (
+          <div className="mb-8">
+            {extraContent}
+          </div>
+        )}
+        
         <Link
           to={buttonLink}
           className="bg-[#add083] text-black font-bold py-3 px-8 rounded-lg text-lg uppercase hover:bg-opacity-90 transition-colors transform hover:scale-105"
@@ -100,14 +108,51 @@ const StatusPageLayout = ({
 // --- PÁGINAS INDIVIDUAIS ---
 
 export function Sucesso() {
+  const location = useLocation();
+  const { nome = "", categorias = [] } = location.state || {};
+  
+  const formatCategories = (cats) => {
+    if (!cats || cats.length === 0) return "";
+    
+    if (cats.length === 1) return cats[0];
+    
+    if (cats.length === 2) return `${cats[0]} e ${cats[1]}`;
+    
+    return cats.slice(0, -1).join(", ") + " e " + cats[cats.length - 1];
+  };
+  
+  const categoriesText = formatCategories(categorias);
+  
+  const extraContent = nome ? (
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.4 }}
+      className="bg-[#2d002a] border border-[#add083] rounded-lg p-4 mt-4"
+    >
+      <p className="text-md text-[#add083] font-medium mb-2">
+        Olá, <span className="font-bold">{nome}</span>!
+      </p>
+      {categoriesText && (
+        <p className="text-sm text-gray-300">
+          Você está participando {categorias.length > 1 ? 'das categorias' : 'da categoria'}: <span className="font-bold text-[#add083]">{categoriesText}</span>
+        </p>
+      )}
+      <p className="text-sm text-gray-300 mt-2">
+        Não esqueça de usar a hashtag <span className="font-bold">#vitissouls</span> nas suas publicações!
+      </p>
+    </motion.div>
+  ) : null;
+
   return (
     <StatusPageLayout
       icon={<SucessoIcon />}
-      title="Inscrição Realizada com Sucesso!"
+      title="Inscrição Confirmada!"
       titleColor="text-green-400"
-      description="Sua inscrição foi confirmada com sucesso. Enviamos todos os detalhes para o seu e-mail. Bem-vindo(a) ao concurso!"
+      description="Sua inscrição foi confirmada com sucesso. Bem-vindo(a) ao concurso!"
       buttonText="Voltar para o Início"
       buttonLink="/"
+      extraContent={extraContent}
     />
   );
 }
