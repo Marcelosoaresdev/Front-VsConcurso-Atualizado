@@ -33,7 +33,7 @@ const SpinnerIcon = () => (
 );
 const CheckCircleIcon = () => (
   <svg
-    className="w-16 h-16 text-[#add083]"
+    className="w-20 h-20 text-[#add083]"
     fill="none"
     stroke="currentColor"
     viewBox="0 0 24 24"
@@ -167,11 +167,11 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
         console.log("Inscrição salva com sucesso:", response.data);
         setStatus("success");
         
-        // Redireciona para a página de sucesso após 2 segundos
+        // Redireciona para a página de sucesso após 5 segundos
         setTimeout(() => {
           onClose();
           window.location.href = "/sucesso";
-        }, 2000);
+        }, 6000);
       } else {
         throw new Error("Resposta inválida do servidor.");
       }
@@ -185,7 +185,7 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
         setTimeout(() => {
           onClose();
           window.location.href = "/sucesso";
-        }, 2000);
+        }, 6000);
         return;
       }
       
@@ -200,7 +200,7 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
         setTimeout(() => {
           onClose();
           window.location.href = "/falha";
-        }, 2000);
+        }, 5000);
       }
     }
   };
@@ -218,12 +218,12 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
             className="text-center flex flex-col items-center space-y-4 text-white"
           >
             <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
+              initial={{ scale: 0, rotate: -10 }}
+              animate={{ scale: 1, rotate: 0 }}
               transition={{ 
                 type: "spring", 
-                stiffness: 200, 
-                damping: 15, 
+                stiffness: 260, 
+                damping: 20, 
                 delay: 0.2 
               }}
             >
@@ -237,7 +237,19 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
               className="text-3xl font-bold text-[#add083]"
               style={{ fontFamily: "Bebas Neue, sans-serif" }}
             >
-              🎉 Inscrição Realizada com Sucesso! 🎉
+              <motion.span
+                animate={{ 
+                  scale: [1, 1.05, 1],
+                  textShadow: ["0px 0px 0px #add08380", "0px 0px 8px #add08380", "0px 0px 0px #add08380"]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  repeatType: "reverse"
+                }}
+              >
+                🎉 Inscrição Realizada com Sucesso! 🎉
+              </motion.span>
             </motion.h3>
             
             <motion.div
@@ -246,10 +258,13 @@ function ModalFormulario({ plano, onClose, apiUrl }) {
               transition={{ delay: 0.6 }}
               className="space-y-2"
             >
-              <p className="text-gray-300 text-lg">
+              <p className="text-gray-300 text-lg font-medium">
                 Parabéns! Você está oficialmente inscrito no concurso!
               </p>
               <p className="text-gray-400 text-sm">
+                Aguarde 5 segundos para ser redirecionado automaticamente.
+              </p>
+              <p className="text-gray-300 text-md mt-2">
                 Agora é só criar seu conteúdo e postar no Instagram com #vitissouls
               </p>
             </motion.div>
